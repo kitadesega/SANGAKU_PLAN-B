@@ -16,7 +16,7 @@
         <nuxt />
     </v-content>
 
- <!-- <v-card height="60px" flat> -->
+ <v-card height="60px" flat> 
    <v-footer>
  <v-bottom-nav :value="true" :active.sync="bottomNav"
  :fixed=true >
@@ -46,7 +46,7 @@
       </v-btn>
     </v-bottom-nav>
     </v-footer>
-    <!-- </v-card> -->
+    </v-card>
 
   </v-app>
   
@@ -56,7 +56,7 @@
 import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  // データをこのコンポーネントにセットする必要がないため fetch() を使う
+// データをこのコンポーネントにセットする必要がないため fetch() を使う
 
  data() {
     return {

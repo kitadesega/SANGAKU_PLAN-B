@@ -201,6 +201,8 @@ export default {
             this.user = user ? user : {}
             const db = firebase.firestore()
             const chatId = uuid();
+
+            let dealings_id = uuid();
             const data = {
               //相手の
               target_user_id: this.requestData.user_id,
@@ -216,6 +218,8 @@ export default {
               item_image:this.targetItem.image_url,
               //チャットのキー
               chatroom_id : chatId,
+              //取引キー
+              dealings_id : dealings_id,
               created_at:new Date(),
           };
 
@@ -234,8 +238,21 @@ export default {
               item_image: this.picked.image_url,
               //チャットのキー
               chatroom_id : chatId,
+              dealings_id : dealings_id,
               created_at:new Date(),
           };
+
+          const data3 = {
+            [this.user.uid] : false,
+            [this.requestData.user_id] : false,
+          }
+
+
+          //受け取り判定に使う取引コレクション
+          db.collection('dealings').doc(dealings_id).set(data3)
+
+
+          db.collection('users').doc(this.user.uid).collection('sendRequest').doc().set(data2)
           
           db.collection('users').doc(this.requestData.user_id).collection('dealings').doc().set(data2)
 
@@ -244,6 +261,7 @@ export default {
           this.user = '';
           this.picked = '';
           this.requestData = '';
+          dealings_id = '';
             this.$router.push("/")
           });
         })

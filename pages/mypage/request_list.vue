@@ -44,7 +44,7 @@
       <v-tab-item value="tab-2">
           <v-list three-line>
             <div v-for="(item, index) in dealings" :key="index" >
-              <nuxt-link :to="{path: '/mypage/dealings', query: {dealingsId: item.chatroom_id }}">
+              <nuxt-link :to="{path: '/mypage/dealings', query: {chatRoomId: item.chatroom_id,dealingId : item.dealings_id}}">
                 <v-list-tile
                   :key="item.item_id"
                   target_user_photo
@@ -151,8 +151,15 @@ export default {
       // 取引中一覧
       docDealingsRef.onSnapshot(snapshot => {
           snapshot.docChanges().forEach(item => {
-            //console.log(item.doc.data());
-            this.dealings.push(item.doc.data());
+            let data = {
+            'dealings_id': item.doc.id,
+            'item_id': item.doc.data().item_id,
+            'item_image': item.doc.data().item_image,
+            'item_name': item.doc.data().item_name,
+            'target_user_name': item.doc.data().target_user_name,
+            'chatroom_id': item.doc.data().chatroom_id,
+          }
+            this.dealings.push(data);
           })
       })
 

@@ -2,8 +2,19 @@
       <v-container>
 
    <!-- ▼LINE風ここから -->
-    
+        <v-layout justify-center>
+          <form action @submit.prevent="sendDealingsApproval" class="form">
+          <v-btn :disabled="!checked" type="submit" large color="error">
+              お土産を受け取りました
+          </v-btn>
+          </form>
+          <br/>
+        </v-layout>
+        <v-layout justify-center>
+          <div style="font-size:10px">※お互いが受け取ると取引完了です</div>
+        </v-layout>
         <div class="line__container">
+          
             <!-- タイトル -->
             <div class="line__title">
                 チャットエリア
@@ -79,13 +90,19 @@ export default {
       dialog: false,
       imageName: "",
       imageUrl: "",
-      imageFile: ""
+      imageFile: "",
+      dealingsKey:"",
+      dealingId:"",
+      chatRoomId:"",
+      checked:false,
+
     }
     //console.log(user);
   },
   asyncData(context) {
     return {
-      dealingsId: context.query['dealingsId']
+      chatRoomId: context.query['chatRoomId'],
+      dealingsId: context.query['dealingId']
     }
   },
   
@@ -96,18 +113,45 @@ export default {
         this.user = user ? user : {}
         //firestore設定
         const db = firebase.firestore()
-        //itemコレクションを選択（コレクションについては各自調べてください）
-        var docRef = db.collection("chat").doc(this.dealingsId).collection("messages").orderBy("created_at", "desc");
-        //データ取得の条件を指定して取得
-
-        //変更や追加された分だけ持ってくる
+        
+        //チャット情報
+        var docRef = db.collection("chat").doc(this.chatRoomId).collection("messages").orderBy("created_at", "desc");
+        
+        //チャットデータ抽出
         docRef.onSnapshot(snapshot => {
             snapshot.docChanges().forEach(item => {
-              // console.log(item.doc.data());
               this.text.push(item.doc.data());
             })
         })
 
+        //取引のコレクション
+         db.collection('users').doc(this.user.uid).collection('dealings').doc(this.dealingsId)
+         .get().then(doc => {
+            if (doc.exists) {
+              this.dealingsKey = doc.data().dealings_id;
+              console.log(doc.data().dealings_id);
+            } else {
+                console.log("No such document!");
+            }
+        })
+        .then(_=> {
+         db.collection("dealings").doc(this.dealingsKey)
+         .get().then(doc => {
+            if (doc.exists) {
+              
+            if(doc.data()[this.user.uid]){
+              this.checked = false;
+            }else{
+              this.checked = true;
+            }
+
+            } else {
+                console.log("No such document!");
+            }
+        })
+        })
+
+// console.log(this.dealingsKey);
     })
   },
   methods : {
@@ -117,22 +161,36 @@ export default {
         
         // this.user = user ? user : {}
         const db = firebase.firestore()
-            var data = {
-            id: this.user.uid,
-            name: this.user.displayName,
-            message: this.message,
-            created_at:new Date(),
-          };
+          var data = {
+          id: this.user.uid,
+          name: this.user.displayName,
+          message: this.message,
+          created_at:new Date(),
+        };
+        
+        if(this.message != ""){
+        var setDoc = db.collection("chat").doc(this.chatRoomId).collection("messages").doc().set(data);
+        }
+        this.message = "";
+
           
-          if(this.message != ""){
-          var setDoc = db.collection("chat").doc(this.dealingsId).collection("messages").doc().set(data);
-          }
-          this.message = "";
           
         
       // })
       
     },
+    //受け取り処理
+    sendDealingsApproval(){
+      const db = firebase.firestore()
+      var washingtonRef = db.collection("dealings").doc(this.dealingsKey);
+
+      // Set the "capital" field of the city 'DC'
+      washingtonRef.update({
+          [this.user.uid]: true
+      }).then(_=> {
+        this.checked = false;
+      });
+    }
   },
   br2nl(){
       return str.replace(/\n/g, '<br>');

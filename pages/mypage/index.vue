@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-card>
-      
       <v-avatar
     size="56px" >
         <img
