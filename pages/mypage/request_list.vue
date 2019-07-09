@@ -2,21 +2,22 @@
   <div>
     <v-tabs
       centered
-      color="glLight grayay"
       dark
       icons-and-text
       v-model="tab"
+       fixed-tabs
     >
       <v-tabs-slider color="yellow"></v-tabs-slider>
       <v-tab href="#tab-1">
-        来た申請
+        受信した申請
       </v-tab>
       <v-tab href="#tab-2">
-        取引中一覧
+        取引中
       </v-tab>
       <v-tab href="#tab-3">
         送った申請
       </v-tab>
+
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-1">
@@ -43,7 +44,7 @@
       <v-tab-item value="tab-2">
           <v-list three-line>
             <div v-for="(item, index) in dealings" :key="index" >
-              <nuxt-link :to="{path: '/mypage/dealings', query: {dealingsId: item.chatroom_id }}">
+              <nuxt-link :to="{path: '/mypage/dealings', query: {chatRoomId: item.chatroom_id,dealingId : item.dealings_id}}">
                 <v-list-tile
                   :key="item.item_id"
                   target_user_photo
@@ -150,8 +151,15 @@ export default {
       // 取引中一覧
       docDealingsRef.onSnapshot(snapshot => {
           snapshot.docChanges().forEach(item => {
-            //console.log(item.doc.data());
-            this.dealings.push(item.doc.data());
+            let data = {
+            'dealings_id': item.doc.id,
+            'item_id': item.doc.data().item_id,
+            'item_image': item.doc.data().item_image,
+            'item_name': item.doc.data().item_name,
+            'target_user_name': item.doc.data().target_user_name,
+            'chatroom_id': item.doc.data().chatroom_id,
+          }
+            this.dealings.push(data);
           })
       })
 
@@ -174,5 +182,13 @@ export default {
 <style>
 a{
   text-decoration: none !important;
+}
+
+/*改行させるかよ*/
+.notNewLine{
+  text-align:center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

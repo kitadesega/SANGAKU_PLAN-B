@@ -1,7 +1,7 @@
 <template>
   <v-app>
 
-    <v-toolbar :fixed="fixed" app >
+    <!-- <v-toolbar :fixed="fixed" app >
       <v-spacer />
         <v-text-field
         hide-details
@@ -9,15 +9,14 @@
         single-line
         placeholder="何をお探しですか？"
          />
-        <!--<v-toolbar-title v-text="title" />-->
         <v-spacer />
-    </v-toolbar>
+    </v-toolbar> -->
     
     <v-content>
         <nuxt />
     </v-content>
 
- <!-- <v-card height="60px" flat> -->
+ <v-card height="60px" flat> 
    <v-footer>
  <v-bottom-nav :value="true" :active.sync="bottomNav"
  :fixed=true >
@@ -47,7 +46,7 @@
       </v-btn>
     </v-bottom-nav>
     </v-footer>
-    <!-- </v-card> -->
+    </v-card>
 
   </v-app>
   
@@ -57,7 +56,7 @@
 import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  // データをこのコンポーネントにセットする必要がないため fetch() を使う
+// データをこのコンポーネントにセットする必要がないため fetch() を使う
 
  data() {
     return {
