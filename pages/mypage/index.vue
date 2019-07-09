@@ -1,18 +1,28 @@
 <template>
   <div>
     <v-card>
-      <p><button v-on:click="logout">ログアウト</button> 
-        <v-icon>person</v-icon>
+      
+      <v-avatar
+    size="56px" >
+        <img
+          :src="user.photoURL"
+        >
+        </v-avatar><a class="notNewLine">
         {{user.displayName}}
-      </p>
+      </a>
+      <div style="display:flex;">
+      <div style="margin-left:auto;">
+      <v-btn v-on:click="logout">ログアウト</v-btn>
+      </div>
+      </div>
     </v-card>
     <v-card style="padding-top:10px;padding-bottom:10px;">
-    <!-- <p>いいね！・閲覧履歴</p> -->
+    <!-- <p>いいね！・閲覧履歴</p>
     <p>出品したお土産</p>
-    <!-- <p>交換した商品</p> -->
+    <p>交換した商品</p>
     <p>取引中のお土産</p>
-    <p>申請中のお土産</p>
-    <nuxt-link to="/mypage/request_list"><p>届いた申請</p></nuxt-link>
+    <nuxt-link to="/mypage/request_list#tab-3"><p>申請中のお土産</p></nuxt-link> -->
+    <nuxt-link to="/mypage/request_list"><p>申請・取引</p></nuxt-link>
     </v-card>
     <v-card>
         <p><span class="cyan--text">ガイド・お問い合わせ</span></p>
@@ -30,9 +40,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   fetch ({ store, route,redirect }) {
-      console.log("今からリダイレクト分岐");
     if (!store.state.user.user) {
-      //console.log("リダイレクトなんだよなぁ")
       if(route.name != "/login"){
       return redirect('/login')
       }else{
@@ -73,5 +81,13 @@ export default {
 p {
   margin-left: 15px;
   margin-top: 10px;
+}
+
+/*改行させるかよ*/
+.notNewLine{
+  text-align:center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
