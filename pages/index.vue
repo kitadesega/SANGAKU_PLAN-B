@@ -90,7 +90,7 @@ export default {
       //firestore設定
       const db = firebase.firestore()
       //itemコレクションを選択（コレクションについては各自調べてください）
-      var docRef = db.collection("item").orderBy("created_at", "desc").limit(1);
+      var docRef = db.collection("item").orderBy("created_at", "desc");
       //データ取得の条件を指定して取得
 
         //データ取得

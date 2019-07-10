@@ -111,6 +111,7 @@ export default {
         // User is signed in.
         //userにログインしているユーザーのデータを入れる
         this.user = user ? user : {}
+        this.text = []
         //firestore設定
         const db = firebase.firestore()
         
@@ -131,7 +132,7 @@ export default {
               this.dealingsKey = doc.data().dealings_id;
               console.log(doc.data().dealings_id);
             } else {
-                console.log("No such document!");
+              console.log("No such document!");
             }
         })
         .then(_=> {
