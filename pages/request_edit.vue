@@ -80,7 +80,8 @@ import uuid from 'uuid'
       checkedItems: [],
       itemId : 'default ID',
       userId : 'default ID',
-      checked:true
+      checked:true,
+      docRefId:''
     }
   },
   asyncData(context) {
@@ -139,19 +140,6 @@ import uuid from 'uuid'
       sendRequest(){
             const db = firebase.firestore()
 
-            //送られた側に入れるデータ
-            const data = {
-            user_id: this.user.uid,
-            user_name: this.user.displayName,
-            user_photo: this.user.photoURL,
-            target_item_id: this.itemId,
-            item1_id: this.checkedItems[0] ? this.checkedItems[0] : '',
-            item2_id: this.checkedItems[1] ? this.checkedItems[1] : '',
-            item3_id: this.checkedItems[2] ? this.checkedItems[2] : '',
-            text: this.message,
-            created_at:new Date(),
-          };
-
           //送る側の申請データ
             const data2 = {
             user_id: this.user.uid,
@@ -166,16 +154,33 @@ import uuid from 'uuid'
             created_at:new Date(),
           };
           //自分が送った申請
-          db.collection('users').doc(this.user.uid).collection('sendRequest').doc().set(data2).then(_=> {
-          db.collection('users').doc(this.userId).collection('request').doc().set(data).then(_ => {
-            this.$router.push("/")
-          });
+          db.collection('users').doc(this.user.uid).collection('sendRequest').add(data2)
+          .then(docRef => {
+            this.docRefId = docRef.id
+          }).then(_=>{
+                        //送られた側に入れるデータ
+            const data4 = {
+            user_id: this.user.uid,
+            user_name: this.user.displayName,
+            user_photo: this.user.photoURL,
+            target_item_id: this.itemId,
+            item1_id: this.checkedItems[0] ? this.checkedItems[0] : '',
+            item2_id: this.checkedItems[1] ? this.checkedItems[1] : '',
+            item3_id: this.checkedItems[2] ? this.checkedItems[2] : '',
+            text: this.message,
+            created_at:new Date(),
+          };
+          db.collection('users').doc(this.userId).collection('request').doc(this.docRefId).set(data4)
+            .then(_ => {
+              this.$router.push("/")
+                        this.user = '';
+          this.itemId = '';
+          this.message = '';
+            });
           })
 
           //どれか１つでも初期化しないとアカウント切り替え時にバグる
-          this.user = '';
-          this.itemId = '';
-          this.message = '';
+
 
 
 

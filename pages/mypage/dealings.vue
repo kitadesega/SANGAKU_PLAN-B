@@ -2,6 +2,7 @@
       <v-container>
 
    <!-- ▼LINE風ここから -->
+   <span v-if="endFlag">
         <v-layout justify-center>
           <form action @submit.prevent="sendDealingsApproval" class="form">
           <v-btn :disabled="!checked" type="submit" large color="error">
@@ -13,6 +14,9 @@
         <v-layout justify-center>
           <div style="font-size:10px">※お互いが受け取ると取引完了です</div>
         </v-layout>
+   </span>
+   <p v-else>取り引きが終了しました</p>
+
         <div class="line__container">
           
             <!-- タイトル -->
@@ -84,7 +88,9 @@ export default {
       user: {},  // ユーザー情報
       text: [],  // 取得したメッセージを入れる配列
       message: '',  // 入力したメッセージ
+      target_user:'',
       title: '',
+      endFlag: true,
       photo: null,
       photo_url: null,
       dialog: false,
@@ -102,7 +108,8 @@ export default {
   asyncData(context) {
     return {
       chatRoomId: context.query['chatRoomId'],
-      dealingsId: context.query['dealingId']
+      dealingsId: context.query['dealingId'],
+      dealingsKey: context.query['dealingsKey']
     }
   },
   
@@ -124,35 +131,42 @@ export default {
               this.text.push(item.doc.data());
             })
         })
+      //取引中データ
+      db.collection('users').doc(this.user.uid).collection('dealings').doc(this.dealingsId).onSnapshot(doc => {
 
-        //取引のコレクション
-         db.collection('users').doc(this.user.uid).collection('dealings').doc(this.dealingsId)
-         .get().then(doc => {
-            if (doc.exists) {
-              this.dealingsKey = doc.data().dealings_id;
-              console.log(doc.data().dealings_id);
-            } else {
-              console.log("No such document!");
-            }
-        })
-        .then(_=> {
-         db.collection("dealings").doc(this.dealingsKey)
-         .get().then(doc => {
-            if (doc.exists) {
-              
-            if(doc.data()[this.user.uid]){
-              this.checked = false;
-            }else{
-              this.checked = true;
-            }
+          this.target_user = doc.data().target_user_id;
+          // this.endFlag
+      });
 
-            } else {
-                console.log("No such document!");
-            }
-        })
-        })
+        
+        //  db.collection("dealings").doc(this.dealingsKey)
+        //  .get().then(doc => {
+        //     if (doc.exists) {
+        //       if(doc.data()[this.user.uid]){
+        //         this.checked = false;
+        //       }else{
+        //         this.checked = true;
+        //       }
 
-// console.log(this.dealingsKey);
+        //     } else {
+        //         console.log("No such document!");
+        //     }
+        // })
+        
+        db.collection("dealings").doc(this.dealingsKey).onSnapshot(doc => {
+        if(doc.data()[this.user.uid]){
+            this.checked = false;
+          }else{
+            this.checked = true;
+          }
+        if(doc.data()[this.user.uid] && doc.data()[this.target_user]){
+          this.endFlag = false;
+        }else{
+          this.endFlag = true;
+        }
+        // this.endFlag
+    });
+
     })
   },
   methods : {

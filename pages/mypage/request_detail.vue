@@ -251,11 +251,16 @@ export default {
           //受け取り判定に使う取引コレクション
           db.collection('dealings').doc(dealings_id).set(data3)
 
+          //取引が開始になるので送られたリクエストを削除
+          db.collection("users").doc(this.user.uid).collection("request").doc(this.requestId).delete()
 
-          db.collection('users').doc(this.user.uid).collection('sendRequest').doc().set(data2)
-          
+          //相手側の送信したリクエストを削除
+          db.collection("users").doc(this.user.uid).collection("sendRequest").doc(this.requestId).delete()
+
+          //相手側に取引データを入れる
           db.collection('users').doc(this.requestData.user_id).collection('dealings').doc().set(data2)
 
+          //自分に取引データを入れる
           db.collection('users').doc(this.user.uid).collection('dealings').doc().set(data)
           .then(_ => {
           this.user = '';
