@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex >
+    <v-flex v-if="loading">
       <h2 class="l-single-head">お土産の情報を入力</h2>
       <form action @submit.prevent="sendMessage" class="form">
       
@@ -123,6 +123,14 @@
       <br/><br/>
       </form>
     </v-flex>
+          <v-progress-circular
+      v-else
+      :size="70"
+      :width="7"
+      color="purple"
+      indeterminate
+      style="position:absolute;margin-left:40%;margin-top:100px"
+    ></v-progress-circular>
   </v-layout>
 </template>
 
@@ -163,6 +171,7 @@ import uuid from 'uuid'
       uploadedImage: [],
       flag: "",
       imageUrl: [],
+      loading: true,
       categoryItems: ['レディース', 'メンズ', 'ベビー・キッズ', 'インテリア・住まい・小物','本・音楽・ゲーム','おもちゃ・ホビー・グッズ','コスメ・香水・美容','家電・スマホ・カメラ','スポーツ・レジャー','ハンドメイド','チケット','自動車・オートバイ','その他']
     }
     //console.log(user);
@@ -170,6 +179,7 @@ import uuid from 'uuid'
     methods : {
       ...mapActions(['setUser']), 
       sendMessage(){
+        this.loading = false;
         firebase.auth().onAuthStateChanged(user => {
             this.user = user ? user : {}
             //console.log(this.user.uid)
@@ -223,8 +233,6 @@ import uuid from 'uuid'
                 }else{
                   this.DBwriting(db,user);
                 }
-
-                
 
                 });
               });
@@ -305,6 +313,7 @@ import uuid from 'uuid'
       this.category = ""
       }).then(_ => {
         this.$router.push("/")
+        this.loading = true;
       });
 
 
