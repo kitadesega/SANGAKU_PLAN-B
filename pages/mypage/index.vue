@@ -20,7 +20,8 @@
     <p>出品したお土産</p>
     <p>交換した商品</p>
     <p>取引中のお土産</p>
-    <nuxt-link to="/mypage/request_list#tab-3"><p>申請中のお土産</p></nuxt-link> -->
+    -->
+    <nuxt-link to="/mypage/item_list"><p>出品したお土産</p></nuxt-link>
     <nuxt-link to="/mypage/request_list"><p>申請・取引</p></nuxt-link>
     </v-card>
     <v-card>

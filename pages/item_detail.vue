@@ -9,6 +9,12 @@
       <v-spacer></v-spacer>
        <v-container grid-list-sm fluid>
            <v-flex xs12 sm2 md1>
+             <nuxt-link :to="{path: '/select_user_mypage', 
+             query: {
+               userId: item.user_id,
+               userPhoto: item.user_photo,
+               userName: item.user_name,
+              }}">
               <v-avatar
                 size="36px"
               >
@@ -17,8 +23,8 @@
                   alt="Avatar"
                 >
               </v-avatar>&nbsp;&nbsp;<strong v-html="item.user_name"></strong>
+             </nuxt-link>
             </v-flex>
-        <!-- <p>{{item.name}}</p> -->
           <v-layout row wrap>
             <v-flex>
             

@@ -26,7 +26,7 @@
             v-for="(value,index) in filteredUsers" :key="index"
             style="margin-left:0px"
           >
-            <v-card  tile style="width:100%">
+            <v-card flat tile style="width:100%">
               <nuxt-link :to="{path: '/item_detail', query: {itemId: value.itemId }}">
               <img
                 :src= "value.image_url[0]"
@@ -35,7 +35,7 @@
                 height="100px"
                 
               >
-              <p class="notNewLine" style="text-align:center">{{value.item_name}}</p>
+              <p style="text-align:center">{{value.title}}</p>
               </nuxt-link>
             </v-card>
           </v-flex>
@@ -90,7 +90,7 @@ export default {
       //firestore設定
       const db = firebase.firestore()
       //itemコレクションを選択（コレクションについては各自調べてください）
-      var docRef = db.collection("item").orderBy("created_at", "desc");
+      var docRef = db.collection("item").where("user_id", "==", this.user.uid);
       //データ取得の条件を指定して取得
 
         //データ取得
@@ -98,7 +98,7 @@ export default {
           snapshot.docChanges().forEach(item => {
               let data = {
               'itemId': item.doc.id,
-              'item_name': item.doc.data().item_name,
+              'title': item.doc.data().item_name,
               'image_url': item.doc.data().image_url
             }
             this.item.push(data);
@@ -122,7 +122,7 @@ export default {
         var users = [];
         for(var i in this.item) {
           var user = this.item[i];
-          if(user.item_name.indexOf(this.searchWood) !== -1) {
+          if(user.title.indexOf(this.searchWood) !== -1) {
             users.push(user);
           } 
         }
@@ -135,12 +135,5 @@ export default {
 <style>
 a{
   text-decoration: none !important;
-}
-/*改行させるかよ*/
-.notNewLine{
-  text-align:center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 </style>
