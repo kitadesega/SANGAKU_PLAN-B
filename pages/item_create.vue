@@ -1,39 +1,63 @@
 <template>
   <v-layout>
-
     <v-flex >
+      <h2 class="l-single-head">お土産の情報を入力</h2>
       <form action @submit.prevent="sendMessage" class="form">
-      <p style="width:100%; margin:10px 0 13px 0; background-color:gray; color:white;line-height:200%">
-        &emsp;商品名を入力してください
-      </p>
-      <v-flex xs12 sm6 md3>
-        <v-text-field
-          label=""
-          solo
-          v-model="title"
-        ></v-text-field>
-      </v-flex>
+      
+        <p style="margin-top:0px;color:#333333;font-size:16px;font-weight:500">
+          &emsp;出品画像<span class="form-require">必須</span>
+        </p><p style="margin-top:-12px;font-size:14px">&emsp;最大3枚までアップロードできます</p>
+      
+      <v-flex xs12 sm6 md3 style="background-color:white">
+<v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
 
-      <p style="width:100%; margin:10px 0 13px 0; background-color:gray; color:white;line-height:200%">
-        &emsp;画像を追加してください
-      </p>
-      <img
-        width=33%
-        v-show="flag"
-        class="preview-item-file1"
-        :src="uploadedImage[0]"
-      /><img
-        width=33%
-        v-show="flag"
-        class="preview-item-file2"
-        :src="uploadedImage[1]"
-      /><img
-        width=33%
-        v-show="flag"
-        class="preview-item-file3"
-        :src="uploadedImage[2]"
-      />
-        <v-layout justify-center>
+          <!-- 画像一つ目 -->
+          <v-flex xs4 v-show="uploadedImage[0]">
+            <v-img
+              :src="uploadedImage[0]"
+            >
+              <v-btn
+                fab dark small color="primary"
+                @click="remove(0)"
+              >
+                <v-icon>clear</v-icon>
+              </v-btn>
+            </v-img>
+          </v-flex>
+
+          <!-- 画像二つ目 -->
+          <v-flex xs4 v-show="uploadedImage[1]">
+            <v-img
+              :src="uploadedImage[1]"
+            >
+              <v-btn
+                fab dark small color="primary"
+                @click="remove(1)"
+              >
+                <v-icon>clear</v-icon>
+              </v-btn>
+            </v-img>
+          </v-flex>
+
+          <!-- 画像三つ目 -->
+          <v-flex xs4 v-show="uploadedImage[2]">
+            <v-img
+              :src="uploadedImage[2]"
+            >
+              <v-btn
+                fab dark small color="primary"
+                @click="remove(2)"
+              >
+                <v-icon>clear</v-icon>
+              </v-btn>
+            </v-img>
+          </v-flex>
+
+        </v-layout>
+      </v-container>
+
+      <v-layout justify-center>
           <v-btn
             @click="pickFile"
             v-model="imageName"
@@ -41,8 +65,9 @@
           >
             <v-icon>photo_camera</v-icon>
           </v-btn>
-        </v-layout>
+      </v-layout>
       <input
+        multiple="multiple"
         type="file"
         style="display: none"
         ref="image"
@@ -50,36 +75,52 @@
         @change="onFilePicked"
       />
 
-      <p style="width:100%; margin:10px 0 13px 0; background-color:gray; color:white;line-height:200%">
-        &emsp;商品の説明を入力してください
-      </p>
-      <v-flex xs12>
-        <v-textarea
-          solo
-          name="input-7-4"
-          v-model="input"
-          label=""
-          value=""
-          height=150
-        ></v-textarea>
+      <v-dialog v-model="dialog" scrollable max-width="300px">
+        <v-card>
+          <v-card-text>{{Message}}</v-card-text>
+          <v-divider></v-divider>
+        </v-card>
+      </v-dialog>
       </v-flex>
-      <p style="width:100%; margin:10px 0 13px 0; background-color:gray; color:white;line-height:200%">
-        &emsp;商品のカテゴリを追加してください
+
+      <p style="margin-top:20px;margin-bottom:0px;color:#333333;font-size:16px;font-weight:500">
+        &emsp;お土産名と説明
+        <span class="form-require">必須</span>
       </p>
-      <v-layout row>
-        <v-flex xs12>
+      <v-flex xs12 sm6 md3 style="background-color:white">
+        <v-container>
+            <!-- success -->
           <v-text-field
-            v-model="category"
-            label=""
-            solo
+            label="商品名"
+            placeholder="(必須、40文字まで)"
+            v-model="title"
+            color="blue"
           ></v-text-field>
-        </v-flex>
-      </v-layout>
-      
-      <v-flex xs12>
-          <v-btn color="red" round large type="submit" style="width:44%">出品する</v-btn>
-          <v-btn color="blue" round large style="width:44%">キャンセル</v-btn>
+
+          <v-textarea
+            label="商品の説明"
+            placeholder="(任意、1000文字まで)
+  (色、素材、重さ、定価、注意点など)"
+            v-model="input"
+            value=""
+            height=150
+            color="blue"
+          ></v-textarea>
+        </v-container>
       </v-flex>
+      <v-flex xs12 sm6 d-flex style="background-color:white">
+        <v-container>
+          <v-select
+            :items="categoryItems"
+            label="カテゴリー"
+            v-model="category"
+          ></v-select>
+        </v-container>
+      </v-flex>
+      <v-layout justify-center>
+        <v-btn color="red" round large type="submit" style="width:70%">出品する</v-btn>
+      </v-layout>
+      <br/><br/>
       </form>
     </v-flex>
   </v-layout>
@@ -90,6 +131,7 @@
 import createPersistedState from 'vuex-persistedstate'
 import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
+import uuid from 'uuid'
 
   export default {
   
@@ -112,6 +154,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
       input: '',  // 入力したメッセージ
       category: '',
       title: '',
+      Message: '',
       photo: null,
       photo_url: null,
       dialog: false,
@@ -120,6 +163,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
       uploadedImage: [],
       flag: "",
       imageUrl: [],
+      categoryItems: ['レディース', 'メンズ', 'ベビー・キッズ', 'インテリア・住まい・小物','本・音楽・ゲーム','おもちゃ・ホビー・グッズ','コスメ・香水・美容','家電・スマホ・カメラ','スポーツ・レジャー','ハンドメイド','チケット','自動車・オートバイ','その他']
     }
     //console.log(user);
   },
@@ -208,7 +252,12 @@ import { mapActions, mapState, mapGetters } from 'vuex'
         });
       } 
     },
-
+      remove(number) {
+        this.imageName.splice(number,1);
+        this.uploadedImage.splice(number,1);
+        this.imageUrl.splice(number,1);
+        console.log("nakami:"+this.imageName);
+      },
       logout() {
         const self = this
         firebase.auth().signOut()
@@ -269,3 +318,21 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 
 </script>
+<style>
+.form-require{
+    margin: 0 0 0 8px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 12px;
+    vertical-align: top;
+    background: #ea352d;
+}
+
+.l-single-head {
+    padding: 24px 8px;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+}
+</style>

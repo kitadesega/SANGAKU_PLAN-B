@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-card>
+      <div style="margin-left:10px;padding-top:10px;">
       <v-avatar
     size="56px" >
         <img
@@ -9,6 +10,7 @@
         </v-avatar><a class="notNewLine">
         {{userName}}
       </a>
+      </div>
     </v-card>
     <v-flex xs12 sm6 offset-sm3>
 

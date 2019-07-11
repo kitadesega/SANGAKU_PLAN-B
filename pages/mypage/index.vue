@@ -1,18 +1,20 @@
 <template>
   <div>
     <v-card>
-      <v-avatar
-    size="56px" >
-        <img
-          :src="user.photoURL"
-        >
-        </v-avatar><a class="notNewLine">
-        {{user.displayName}}
-      </a>
-      <div style="display:flex;">
-      <div style="margin-left:auto;">
-      <v-btn v-on:click="logout">ログアウト</v-btn>
-      </div>
+      <div style="margin-left:10px;padding-top:10px;">
+        <v-avatar
+      size="56px" >
+          <img
+            :src="user.photoURL"
+          >
+          </v-avatar><a class="notNewLine">
+          {{user.displayName}}
+        </a>
+        <div style="display:flex;">
+          <div style="margin-left:auto;">
+            <v-btn v-on:click="logout">ログアウト</v-btn>
+          </div>
+        </div>
       </div>
     </v-card>
     <v-card style="padding-top:10px;padding-bottom:10px;">

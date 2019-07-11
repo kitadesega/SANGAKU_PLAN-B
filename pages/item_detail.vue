@@ -61,7 +61,7 @@
           <br><div id ="kategori">
           <v-btn>{{item.category}}</v-btn>
           </div>
-          <br><v-pre xs1>{{item.item_text}}</v-pre>
+          <br><pre>{{item.item_text}}</pre>
           <br>
           <div id="syonin">
             <nuxt-link :to="{path: '/request_edit', query: {itemId: itemId ,userId:item.user_id}}">
@@ -156,5 +156,8 @@ background-color:darkgrey;
 <style>
 #syonin{
   text-align: center;
+}
+a{
+  text-decoration-line: none;
 }
 </style>

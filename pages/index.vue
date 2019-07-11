@@ -24,7 +24,7 @@
             xs4
             md3
             v-for="(value,index) in filteredUsers" :key="index"
-            style="margin-left:0px"
+            style="margin-bottom:-12px"
           >
             <v-card  tile style="width:100%">
               <nuxt-link :to="{path: '/item_detail', query: {itemId: value.itemId }}">
