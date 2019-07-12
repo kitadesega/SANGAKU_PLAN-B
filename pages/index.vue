@@ -13,7 +13,7 @@
         <v-spacer />
     </v-toolbar>
 
-    <v-card light width=100%>
+    
       <v-card-actions>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -21,23 +21,20 @@
         
         <v-layout row wrap >
           <v-flex
-            xs4
-            md3
-            v-for="(value,index) in filteredUsers" :key="index"
-            style="margin-bottom:-12px"
-          >
-            <v-card  tile style="width:100%">
+          xs4
+          v-for="(value,index) in filteredUsers" :key="index"
+          style="margin-bottom:0px"
+          ><v-card>
               <nuxt-link :to="{path: '/item_detail', query: {itemId: value.itemId }}">
-              <img
-                :src= "value.image_url[0]"
-                style = "object-fit: cover"
-                width="100%"
-                height="100px"
-                
-              >
-              <p class="notNewLine" style="text-align:center">{{value.item_name}}</p>
-              </nuxt-link>
-            </v-card>
+                <img
+                  :src= "value.image_url[0]"
+                  style = "object-fit: cover"
+                  width = "100%"
+                  height = "110px"
+                >
+                <p class="notNewLine" style="text-align:center">{{value.item_name}}</p>
+                </nuxt-link>
+                </v-card>
           </v-flex>
         </v-layout>
         
@@ -50,7 +47,7 @@
       indeterminate
       style="position:absolute;margin-left:40%;margin-top:100px"
     ></v-progress-circular>
-    </v-card>
+    
     
 </v-flex>
 
@@ -135,6 +132,11 @@ export default {
 <style>
 a{
   text-decoration: none !important;
+  color:black;
+}
+p{
+  font-size:12px;
+  margin-bottom:0px !important;
 }
 /*改行させるかよ*/
 .notNewLine{

@@ -20,10 +20,25 @@
    <v-footer>
  <v-bottom-nav :value="true" :active.sync="bottomNav"
  :fixed=true >
-  <v-btn color="teal" flat value="recent" to = "/" >
-    <span>ホーム</span>
-    <v-icon>home</v-icon>
-  </v-btn>
+      <v-btn color="teal" flat value="recent" to = "/" >
+        <span>ホーム</span>
+        <v-icon>home</v-icon>
+      </v-btn>
+
+      <v-btn
+        color="teal"
+        flat
+        value="unko"
+        to = "/mypage/notice"
+      >
+        <span>お知らせ</span>
+        <v-badge color="red">
+      <template v-slot:badge>
+        <span>{{noticeCount}}</span>
+      </template>
+        <v-icon>notifications_none</v-icon>
+           </v-badge>
+      </v-btn>
 
       <v-btn
         color="teal"
@@ -70,7 +85,9 @@ export default {
       rightDrawer: false,
       title: '産学連携',
       bottomNav: "",
-      color: '#FFF'
+      color: '#FFF',
+      noticeCount:'',
+      count:[]
     }
   },
     created() {
@@ -78,7 +95,24 @@ export default {
       if (user) {
         // User is signed in.
         this.user = user ? user : {}
-        //console.log(this.user.uid)
+        const db = firebase.firestore()
+        //itemコレクションを選択（コレクションについては各自調べてください）
+        var docRef = db.collection('users').doc(this.user.uid).collection('notice');
+        //データ取得の条件を指定して取得
+
+         //通知数獲得
+        docRef.onSnapshot(snapshot => {
+          this.count = [];
+            snapshot.docChanges().forEach(item => {
+              if(!item.doc.data().read_flag){
+              this.count.push(item.doc.data());
+              this.noticeCount = this.count.length;
+              }else{
+              this.noticeCount = 0;
+              }
+            });
+        })
+        
       } else {
         // No user is signed in.
         this.$router.push("/login")

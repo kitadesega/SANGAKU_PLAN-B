@@ -1,6 +1,23 @@
 <template>
+
   <div>
+        <div>
+          <v-toolbar>
+            <v-btn icon>
+              <nuxt-link :to="{path: '/'}">
+              <v-icon>arrow_back</v-icon>
+              </nuxt-link>
+            </v-btn>
+            <v-toolbar-title>マイページ</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+        </div>
+        
     <v-card>
+
+            <!-- <v-btn icon>
+              <v-icon>search</v-icon>
+            </v-btn> -->
       <div style="margin-left:10px;padding-top:10px;">
         <v-avatar
       size="56px" >

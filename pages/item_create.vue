@@ -6,7 +6,7 @@
       
         <p style="margin-top:0px;color:#333333;font-size:16px;font-weight:500">
           &emsp;出品画像<span class="form-require">必須</span>
-        </p><p style="margin-top:-12px;font-size:14px">&emsp;最大3枚までアップロードできます</p>
+        </p><p style="margin-top:-5px;font-size:14px">&emsp;最大3枚までアップロードできます</p>
       
       <v-flex xs12 sm6 md3 style="background-color:white">
 <v-container grid-list-md text-xs-center>
@@ -118,7 +118,7 @@
         </v-container>
       </v-flex>
       <v-layout justify-center>
-        <v-btn color="red" round large type="submit" style="width:70%">出品する</v-btn>
+        <v-btn color="red" round large type="submit" style="width:70%;height:60px;color:white">出品する</v-btn>
       </v-layout>
       <br/><br/>
       </form>

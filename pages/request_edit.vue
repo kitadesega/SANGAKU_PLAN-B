@@ -81,7 +81,8 @@ import uuid from 'uuid'
       itemId : 'default ID',
       userId : 'default ID',
       checked:true,
-      docRefId:''
+      docRefId:'',
+      noticeCount:'99'
     }
   },
   asyncData(context) {
@@ -158,7 +159,7 @@ import uuid from 'uuid'
           .then(docRef => {
             this.docRefId = docRef.id
           }).then(_=>{
-                        //送られた側に入れるデータ
+            //送られた側に入れるデータ
             const data4 = {
             user_id: this.user.uid,
             user_name: this.user.displayName,
@@ -170,12 +171,20 @@ import uuid from 'uuid'
             text: this.message,
             created_at:new Date(),
           };
+            const data5 = {
+              image_url:this.itemDetail.image_url,
+              message:this.user.displayName + "さんから申請が届きました。",
+              type:"request",
+              link_id:this.docRefId,
+              read_flag:false
+            }
+          db.collection('users').doc(this.userId).collection('notice').doc().set(data5)
           db.collection('users').doc(this.userId).collection('request').doc(this.docRefId).set(data4)
             .then(_ => {
               this.$router.push("/")
-                        this.user = '';
-          this.itemId = '';
-          this.message = '';
+              this.user = '';
+              this.itemId = '';
+              this.message = '';
             });
           })
 

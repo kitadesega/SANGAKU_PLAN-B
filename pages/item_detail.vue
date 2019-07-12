@@ -1,11 +1,19 @@
 <template>
   <v-layout>
     <v-flex v-if="loading" xs12 sm6 offset-sm3>
+      <div style="padding-bottom:50px"><v-card>
+            <v-toolbar fixed light height="">
+              <v-btn icon>
+                <nuxt-link :to="{path: '/'}">
+                <v-icon>arrow_back</v-icon>
+                </nuxt-link>
+              </v-btn>
+              <v-toolbar-title>{{item.item_name}}</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+            </v-card>
+      </div>
     <v-card>
-      <!-- <v-btn fab dark small color="black">
-        <v-icon dark>person</v-icon>
-      </v-btn > -->
-     
       <v-spacer></v-spacer>
        <v-container grid-list-sm fluid>
            <v-flex xs12 sm2 md1>
@@ -30,34 +38,26 @@
             
               <v-card flat tile class="d-flex">
 
-                <v-img
-                  :src="item.image_url[0]"
-                  height="200"
-                  :lazy-src="item.user_photo"
-                  aspect-ratio="1"
-                  class="grey lighten-2"
-                >
-                <v-layout column fill-height >
-                  
-                  <v-spacer></v-spacer>
-                  <v-flex shrink xs1>
-                  <div id="item_name">{{item.item_name}}</div>
-                  </v-flex>
-                </v-layout>
-                  <template v-slot:placeholder>
-                    <v-layout
-                      fill-height
-                      align-center
-                      justify-center
-                      ma-0
-                    >
-                      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                    </v-layout>
-                  </template>
-                </v-img>
+                <v-carousel>
+                  <v-carousel-item
+                    v-for="(item,i) in item.image_url"
+                    :key="i"
+                    :src="item"
+                    height="200"
+                    aspect-ratio="1"
+                    class="grey lighten-2"
+                  >
+                  </v-carousel-item>
+                </v-carousel>
               </v-card>
             </v-flex>
           </v-layout>
+            <v-layout column fill-height >      
+              <v-spacer></v-spacer>
+              <v-flex shrink xs1>
+              <div id="item_name">{{item.item_name}}</div>
+              </v-flex>
+            </v-layout>
           <br><div id ="kategori">
           <v-btn>{{item.category}}</v-btn>
           </div>

@@ -29,6 +29,7 @@
               <div v-for="(value,index) in text" :key="index">
               {{ value.name }}
               <div class="line__left">
+                <img src="~/assets/shouhin.png">
                 <div class="text">
                   <pre>{{value.message}}</pre>
                   <!-- <div v-html="$sanitize(value.message)"></div> -->
