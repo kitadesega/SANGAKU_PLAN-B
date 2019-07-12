@@ -1,11 +1,32 @@
 <template>
   <div>
-    <div v-for="(value, index) in item" :key="index" >
-      <p>{{value.message}}</p>
-      <nuxt-link :to="{path: '/mypage/request_detail', query: {requestId: value.link_id }}">
-      {{value.link_id}}
-      </nuxt-link>
-    </div>
+
+        <div>
+          <v-toolbar>
+            <v-toolbar-title>お知らせ</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+        </div>
+         <v-list three-line>
+            <div v-for="(item, index) in item" :key="index" >
+              <nuxt-link :to="{path: '/mypage/request_detail', query: {requestId: item.link_id }}">
+                    <v-list-tile
+                  :key="item.link_id"
+                >
+                  <v-list-tile>
+                    <img :src="item.image_url[0]"
+                    width="50px"
+                    height="50px">
+                  </v-list-tile>
+
+                  <v-list-tile-content>
+                    
+                    <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+             </nuxt-link>
+            </div>
+          </v-list>
   </div>
 </template>
 
@@ -19,8 +40,6 @@ export default {
     if (!store.state.user.user) {
       if(route.name != "/login"){
       return redirect('/login')
-      }else{
-       return redirect('/mypage/')
       }
     }
   },
@@ -50,12 +69,16 @@ export default {
 
       db.collection('users').doc(this.user.uid).collection('notice').get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
-        var cityRef = db.collection('users').doc(this.user.uid).collection('notice').doc(doc.id);
-        return cityRef.update({
-            read_flag: true
+          
+            console.log("ここで動いたらおかしい")
+            var cityRef = db.collection('users').doc(this.user.uid).collection('notice').doc(doc.id);
+            return cityRef.update({
+              read_flag: true
+            });
+          
         });
-    });
-});
+      });
+        
     })
   },
   methods : {

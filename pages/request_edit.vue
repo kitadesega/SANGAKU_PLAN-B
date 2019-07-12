@@ -82,7 +82,6 @@ import uuid from 'uuid'
       userId : 'default ID',
       checked:true,
       docRefId:'',
-      noticeCount:'99'
     }
   },
   asyncData(context) {

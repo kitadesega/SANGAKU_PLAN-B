@@ -1,17 +1,12 @@
 <template>
 
   <div>
-        <div>
-          <v-toolbar>
-            <v-btn icon>
-              <nuxt-link :to="{path: '/'}">
-              <v-icon>arrow_back</v-icon>
-              </nuxt-link>
-            </v-btn>
-            <v-toolbar-title>マイページ</v-toolbar-title>
-            <v-spacer></v-spacer>
-          </v-toolbar>
-        </div>
+    <div>
+      <v-toolbar>
+        <v-toolbar-title>マイページ</v-toolbar-title>
+        <v-spacer></v-spacer>
+      </v-toolbar>
+    </div>
         
     <v-card>
 
