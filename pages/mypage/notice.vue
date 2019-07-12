@@ -9,7 +9,7 @@
         </div>
          <v-list three-line>
             <div v-for="(item, index) in item" :key="index" >
-              <div :v-if="item.type == 'request'">
+              <div v-if="item.type == 'request'">
                 <nuxt-link :to="{path: '/mypage/request_detail', query: {requestId: item.link_id }}">
                       <v-list-tile
                     :key="item.link_id"
@@ -27,7 +27,7 @@
                   </v-list-tile>
                 </nuxt-link>
               </div>
-              <div :v-else-if="item.type == 'dealings'">
+              <div v-else-if="item.type == 'dealings'">
               <nuxt-link :to="{path: '/mypage/dealings', query: {
                 chatRoomId: item.chatroom_id,
                 dealingId : item.dealings_id,

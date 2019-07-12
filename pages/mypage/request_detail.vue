@@ -270,10 +270,11 @@ export default {
               //チャットのキー
               chatroom_id : chatId,
               //取引キー
-              dealings_id : dealings_id,
+              dealings_key : dealings_id,
               image_url:this.picked.image_url,
-              message:"取引開始",
+              message:this.requestData.user_name + "さんとの取引が開始しました",
               read_flag:false,
+              type:"dealings",
               created_at:new Date(),
           };
 
