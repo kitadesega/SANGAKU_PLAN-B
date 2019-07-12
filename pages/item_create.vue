@@ -188,6 +188,7 @@ import uuid from 'uuid'
             var storageRef = firebase.storage().ref();
 
             // ファイルのパスを設定(1)
+            this.imageName[0] = uuid();
             var mountainsRef = storageRef.child(`images/${this.imageName[0]}`);
             // ファイルを適用してファイルアップロード開始
             mountainsRef.put(this.imageFile[0]).then(snapshot => {
@@ -199,6 +200,7 @@ import uuid from 'uuid'
                 if(this.imageName[1] !== undefined){
 
                   // ファイルのパスを設定(2)
+                  this.imageName[1] = uuid();
                   var mountainsRef = storageRef.child(`images/${this.imageName[1]}`);
                   // ファイルを適用してファイルアップロード開始
                   mountainsRef.put(this.imageFile[1]).then(snapshot => {
@@ -210,6 +212,7 @@ import uuid from 'uuid'
                       if(this.imageName[2] !== undefined){
 
                         // ファイルのパスを設定(3)
+                        this.imageName[2] = uuid();
                         var mountainsRef = storageRef.child(`images/${this.imageName[2]}`);
                         // ファイルを適用してファイルアップロード開始
                         mountainsRef.put(this.imageFile[2]).then(snapshot => {
