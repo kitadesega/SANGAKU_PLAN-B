@@ -295,25 +295,25 @@ import uuid from 'uuid'
       //itemコレクションに対して
       db.collection('item').add(itemInputData)
       .then(docRef => {
-        const usersInputData = {
-        item_id: docRef.id,
-        user_photo:user.photoURL,
-        user_name: user.displayName,
-        item_name:this.title,
-        text: this.input,
-        category: this.category,
-        image_url: this.imageUrl,
-        created_at:new Date(),
-      };
-      // ユーザーの出品一覧に対して
-     db.collection("users/"+this.user.uid+"/item").doc().set(usersInputData)
-      this.input = "";
-      this.imageName= [],
-      this.imageFile = [],
-      this.uploadedImage = [],
-      this.imageUrl = [],
-      this.title = "",
-      this.category = ""
+          const usersInputData = {
+          item_id: docRef.id,
+          user_photo:user.photoURL,
+          user_name: user.displayName,
+          item_name:this.title,
+          text: this.input,
+          category: this.category,
+          image_url: this.imageUrl,
+          created_at:new Date(),
+        };
+        // ユーザーの出品一覧に対して
+        db.collection("users/"+this.user.uid+"/item").doc().set(usersInputData)
+        this.input = "";
+        this.imageName= [],
+        this.imageFile = [],
+        this.uploadedImage = [],
+        this.imageUrl = [],
+        this.title = "",
+        this.category = ""
       }).then(_ => {
         this.$router.push("/")
         this.loading = true;

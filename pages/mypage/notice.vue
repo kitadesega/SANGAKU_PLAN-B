@@ -9,22 +9,45 @@
         </div>
          <v-list three-line>
             <div v-for="(item, index) in item" :key="index" >
-              <nuxt-link :to="{path: '/mypage/request_detail', query: {requestId: item.link_id }}">
-                    <v-list-tile
-                  :key="item.link_id"
-                >
-                  <v-list-tile>
-                    <img :src="item.image_url[0]"
-                    width="50px"
-                    height="50px">
-                  </v-list-tile>
+              <div :v-if="item.type == 'request'">
+                <nuxt-link :to="{path: '/mypage/request_detail', query: {requestId: item.link_id }}">
+                      <v-list-tile
+                    :key="item.link_id"
+                  >
+                    <v-list-tile>
+                      <img :src="item.image_url[0]"
+                      width="50px"
+                      height="50px">
+                    </v-list-tile>
 
-                  <v-list-tile-content>
-                    
-                    <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-             </nuxt-link>
+                    <v-list-tile-content>
+                      
+                      <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </nuxt-link>
+              </div>
+              <div :v-else-if="item.type == 'dealings'">
+              <nuxt-link :to="{path: '/mypage/dealings', query: {
+                chatRoomId: item.chatroom_id,
+                dealingId : item.dealings_id,
+                dealingsKey:item.dealings_key}}">
+                      <v-list-tile
+                    :key="item.dealings_key"
+                  >
+                    <v-list-tile>
+                      <img src="item.image_url"
+                      width="50px"
+                      height="50px">
+                    </v-list-tile>
+
+                    <v-list-tile-content>
+                      
+                      <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </nuxt-link>
+              </div>
             </div>
           </v-list>
   </div>
@@ -63,14 +86,12 @@ export default {
       docRef.onSnapshot(snapshot => {
           snapshot.docChanges().forEach(item => {
             this.item.push(item.doc.data());
-            console.log(item.doc.data())
+            // console.log(item.doc.data())
           });
       })
 
       db.collection('users').doc(this.user.uid).collection('notice').get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          
-            console.log("ここで動いたらおかしい")
             var cityRef = db.collection('users').doc(this.user.uid).collection('notice').doc(doc.id);
             return cityRef.update({
               read_flag: true

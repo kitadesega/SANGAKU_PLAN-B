@@ -248,6 +248,7 @@ export default {
           }
 
 
+
           //受け取り判定に使う取引コレクション
           db.collection('dealings').doc(dealings_id).set(data3)
 
@@ -260,9 +261,26 @@ export default {
           //相手側に取引データを入れる
           db.collection('users').doc(this.requestData.user_id).collection('dealings').doc().set(data2)
 
-          //自分に取引データを入れる
-          db.collection('users').doc(this.user.uid).collection('dealings').doc().set(data)
-          .then(_ => {
+          //自分に取引データを入れるここのid欲しい、通知に使う
+          db.collection('users').doc(this.user.uid).collection('dealings').add(data)
+          .then(docRef => {
+             const data5 = {
+              //取引ID
+              dealings_id:docRef.id,
+              //チャットのキー
+              chatroom_id : chatId,
+              //取引キー
+              dealings_id : dealings_id,
+              image_url:this.picked.image_url,
+              message:"取引開始",
+              read_flag:false,
+              created_at:new Date(),
+          };
+
+          //通知機能に使う奴
+          db.collection('users').doc(this.requestData.user_id).collection('notice').doc().set(data5)
+
+
           this.user = '';
           this.picked = '';
           this.requestData = '';
