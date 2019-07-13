@@ -86,7 +86,7 @@ export default {
       title: '産学連携',
       bottomNav: "",
       color: '#FFF',
-      noticeCount:'',
+      noticeCount:0,
       count:[]
     }
   },
@@ -102,16 +102,15 @@ export default {
 
          //通知数獲得
         docRef.onSnapshot(snapshot => {
-             this.count = [];
-            this.noticeCount = 0;
             snapshot.docChanges().forEach(item => {
-
+            console.log(item.doc.data());
               if(item.doc.data().read_flag == false){
-                console.log(item.doc.data());
-              this.count.push(item.doc.data());
-              this.noticeCount = this.count.length;
+              //   console.log(item.doc.data());
+              // this.count.push(item.doc.data());
+              this.noticeCount = this.noticeCount + 1
+              
               }else{
-              this.noticeCount = 0;
+              
               }
             });
         })

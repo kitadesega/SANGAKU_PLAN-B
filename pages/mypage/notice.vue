@@ -73,34 +73,37 @@ export default {
     }
   },
   created() {
-    firebase.auth().onAuthStateChanged(user => {
-        //userにログインしているユーザーのデータを入れる
-      this.user = user ? user : {}
-      //firestore設定
-      const db = firebase.firestore()
-      //itemコレクションを選択（コレクションについては各自調べてください）
-      var docRef = db.collection('users').doc(this.user.uid).collection('notice')
-      //データ取得の条件を指定して取得
+    
+      firebase.auth().onAuthStateChanged(user => {
+          //userにログインしているユーザーのデータを入れる
+        this.user = user ? user : {}
+        const db = firebase.firestore()
+        var docRef = db.collection('users').doc(this.user.uid).collection('notice')
+        //データ取得の条件を指定して取得
 
-        //データ取得
-      docRef.onSnapshot(snapshot => {
-          snapshot.docChanges().forEach(item => {
-            this.item.push(item.doc.data());
-            // console.log(item.doc.data())
-          });
-      })
-
-      db.collection('users').doc(this.user.uid).collection('notice').get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-            var cityRef = db.collection('users').doc(this.user.uid).collection('notice').doc(doc.id);
-            return cityRef.update({
-              read_flag: true
+          //データ取得
+        docRef.onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(item => {
+              this.item.push(item.doc.data());
+              // console.log(item.doc.data())
             });
-          
+        })
+
+        db.collection('users').doc(this.user.uid).collection('notice').get().then(querySnapshot => {
+          //動いてたらやばいとこ
+          console.log("動くはずかない");
+          console.log(this.$route.name);
+          querySnapshot.forEach(doc => {
+              var cityRef = db.collection('users').doc(this.user.uid).collection('notice').doc(doc.id);
+              return cityRef.update({
+                read_flag: true
+              });
+            
+          });
         });
-      });
-        
-    })
+          
+      })
+    
   },
   methods : {
     ...mapActions(['setUser']), 

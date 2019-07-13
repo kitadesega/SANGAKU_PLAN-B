@@ -22,11 +22,7 @@
           </v-avatar><a class="notNewLine">
           {{user.displayName}}
         </a>
-        <div style="display:flex;">
-          <div style="margin-left:auto;">
-            <v-btn v-on:click="logout">ログアウト</v-btn>
-          </div>
-        </div>
+
       </div>
     </v-card>
     <v-card style="padding-top:10px;padding-bottom:10px;">
@@ -74,17 +70,6 @@ export default {
   },
   methods : {
     ...mapActions(['setUser']), 
-    logout() {
-      const self = this
-      firebase.auth().signOut()
-      .then(_ => {
-        console.log("ログアウト成功")
-        this.$store.dispatch('user/fecthUser',)
-        //self.$router.push("/login")
-      }).catch((error) => {
-        alert(error)
-      })
-    }
   },
   
 };
