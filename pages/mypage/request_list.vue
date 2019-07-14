@@ -144,7 +144,6 @@ export default {
             'user_photo': item.doc.data().user_photo,
             'text': item.doc.data().text
           }
-          console.log(data);
             this.item.push(data);
           })
       })
@@ -168,7 +167,6 @@ export default {
       //自分が送った申請一覧
       docMyRequestRef.onSnapshot(snapshot => {
           snapshot.docChanges().forEach(item => {
-            console.log(item.doc.data());
             this.myRequest.push(item.doc.data());
           })
       })

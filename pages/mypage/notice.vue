@@ -73,7 +73,8 @@ export default {
     }
   },
   created() {
-    
+    const routeName = this.$route.name;
+    if(routeName === 'mypage-notice'){
       firebase.auth().onAuthStateChanged(user => {
           //userにログインしているユーザーのデータを入れる
         this.user = user ? user : {}
@@ -90,9 +91,6 @@ export default {
         })
 
         db.collection('users').doc(this.user.uid).collection('notice').get().then(querySnapshot => {
-          //動いてたらやばいとこ
-          console.log("動くはずかない");
-          console.log(this.$route.name);
           querySnapshot.forEach(doc => {
               var cityRef = db.collection('users').doc(this.user.uid).collection('notice').doc(doc.id);
               return cityRef.update({
@@ -101,8 +99,9 @@ export default {
             
           });
         });
-          
+
       })
+    }
     
   },
   methods : {

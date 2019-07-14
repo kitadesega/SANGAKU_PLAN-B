@@ -8,7 +8,7 @@
       </v-toolbar>
     </div>
         
-    <v-card>
+    <v-card><button type="button" @click="logout">ログアウト</button>
 
             <!-- <v-btn icon>
               <v-icon>search</v-icon>
@@ -25,6 +25,7 @@
 
       </div>
     </v-card>
+    
     <v-card style="padding-top:10px;padding-bottom:10px;">
     <!-- <p>いいね！・閲覧履歴</p>
     <p>出品したお土産</p>
@@ -70,6 +71,17 @@ export default {
   },
   methods : {
     ...mapActions(['setUser']), 
+          logout() {
+        const self = this
+        firebase.auth().signOut()
+        .then(_ => {
+          console.log("ログアウト成功")
+          this.$store.dispatch('user/fecthUser',)
+          //self.$router.push("/login")
+        }).catch((error) => {
+          alert(error)
+        })
+      },
   },
   
 };
