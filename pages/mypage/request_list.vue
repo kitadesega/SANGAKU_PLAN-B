@@ -117,6 +117,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 import uuid from 'uuid'
 
 export default {
+  //ボトムナビ無し
   layout: 'not_bottom',
   fetch ({ store, route,redirect }) {
     if (!store.state.user.user) {
