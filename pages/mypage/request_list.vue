@@ -1,5 +1,19 @@
 <template>
+
   <div>
+      <div style="padding-bottom:50px">
+        <v-card>
+            <v-toolbar fixed light height="">
+              <v-btn icon>
+                <nuxt-link :to="{path: '/mypage'}">
+                <v-icon>arrow_back</v-icon>
+                </nuxt-link>
+              </v-btn>
+              <v-toolbar-title>お土産取引</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+          </v-card>
+      </div>
     <v-tabs
       centered
       dark
@@ -103,6 +117,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 import uuid from 'uuid'
 
 export default {
+  layout: 'not_bottom',
   fetch ({ store, route,redirect }) {
     if (!store.state.user.user) {
       if(route.name != "/login"){

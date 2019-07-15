@@ -1,7 +1,8 @@
 <template>
   <v-layout>
     <v-flex v-if="loading" xs12 sm6 offset-sm3>
-      <div style="padding-bottom:50px"><v-card>
+      <div style="padding-bottom:50px">
+        <v-card>
             <v-toolbar fixed light height="">
               <v-btn icon>
                 <nuxt-link :to="{path: '/'}">
@@ -11,7 +12,7 @@
               <v-toolbar-title>{{item.item_name}}</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
-            </v-card>
+          </v-card>
       </div>
     <v-card>
       <v-spacer></v-spacer>
@@ -68,6 +69,14 @@
                 <v-btn large round color="yellow">申請を作成</v-btn>
             </nuxt-link>
           </div>
+            <v-flex xs12>
+            <div id ="kategori"><v-btn @click="click" round large type="submit">書き込み</v-btn>
+            <nuxt-link :to="{path: '/comment', query: {itemId: itemId }}">
+            <v-btn>コメント</v-btn>
+            </nuxt-link>
+            </div>
+            <!-- <v-btn round large @click="setUser(input)" >送信する</v-btn> -->
+          </v-flex>
         </v-container>
     </v-card> 
     </v-flex>
@@ -77,6 +86,27 @@
       indeterminate
       color="primary"
     ></v-progress-circular>
+        <!-- dialogのやつ -->
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+          <br><v-flex xs12>
+          <v-textarea
+            solo
+            name="input-7-4"
+            v-model="input"
+            label="コメント欄"
+            value=""
+            height=150
+          ></v-textarea>
+          </v-flex>
+          <div id ="kategori">
+          <v-btn @click="dialog = false" @click.prevent="setUser(input)">送信</v-btn>
+          <v-btn @click="dialog = false">中断</v-btn>
+          </div>
+        </v-card>
+      </v-dialog>
+    </v-layout>
   </v-layout>
 </template>
 
@@ -87,7 +117,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 import uuid from 'uuid'
 
 export default {
-
+layout: 'not_bottom',
   fetch ({ store, route,redirect }) {
     if (!store.state.user.user) {
       if(route.name != "/login"){
@@ -104,7 +134,8 @@ export default {
       item: '',  // 商品一覧
       itemId : 'default ID',
       dialog: false,
-      loading: false
+      loading: false,
+      chat:[]
     }
   },
   asyncData(context) {
@@ -135,6 +166,17 @@ export default {
   },
     methods : {
       ...mapActions(['setUser']), 
+      click() {
+      this.dialog =　!this.dialog
+    },
+        setUser: function (data) {
+        console.log(data);
+        /****************   ここからしたで作った配列（連想配列）をFirebaseに登録（上のcreated）のとこ参照  ********************* */
+        const db = firebase.firestore()
+        db.collection("item").doc(this.itemId).collection("comment").doc().set({
+                 comment: data
+        })
+      } 
     },
   
 };

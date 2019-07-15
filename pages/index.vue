@@ -32,7 +32,7 @@
                   width = "100%"
                   height = "110px"
                 >
-                <p class="notNewLine" style="text-align:center">{{value.item_name}}</p>
+                <p class="notNewLine" style="text-align:center">&nbsp;{{value.item_name}}</p>
                 </nuxt-link>
                 </v-card>
           </v-flex>

@@ -8,7 +8,8 @@
       </v-toolbar>
     </div>
         
-    <v-card><button type="button" @click="logout">ログアウト</button>
+    <v-card>
+      <!-- <button type="button" @click="logout">ログアウト</button> -->
 
             <!-- <v-btn icon>
               <v-icon>search</v-icon>
@@ -32,8 +33,8 @@
     <p>交換した商品</p>
     <p>取引中のお土産</p>
     -->
-    <nuxt-link to="/mypage/item_list"><p>出品したお土産</p></nuxt-link>
-    <nuxt-link to="/mypage/request_list"><p>申請・取引</p></nuxt-link>
+    <nuxt-link to="/mypage/item_list"><p style="font-size:1.1em">出品したお土産</p></nuxt-link>
+    <nuxt-link to="/mypage/request_list"><p style="font-size:1.1em">申請・取引</p></nuxt-link>
     </v-card>
     <v-card>
         <p><span class="cyan--text">ガイド・お問い合わせ</span></p>

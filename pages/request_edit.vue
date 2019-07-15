@@ -1,5 +1,18 @@
 <template>
   <v-card light>
+      <div style="padding-bottom:50px">
+        <v-card>
+            <v-toolbar fixed light height="">
+              <v-btn icon>
+                <nuxt-link :to="{path: '/item_detail', query: {itemId: itemId }}">
+                <v-icon>arrow_back</v-icon>
+                </nuxt-link>
+              </v-btn>
+              <v-toolbar-title>申請作成</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+          </v-card>
+      </div>
     <v-card-actions>
       <v-spacer></v-spacer>
     </v-card-actions>
@@ -45,7 +58,7 @@
           height=150
         ></v-textarea>
       </v-flex>
-    <v-btn type="submit" :disabled="!checked" large round color="yellow" dark>申請を送信</v-btn>
+    <v-btn type="submit" :disabled="!checked" large round color="yellow" >申請を送信</v-btn>
     </form>
     </v-container>
   </v-card>
@@ -57,8 +70,9 @@ import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import uuid from 'uuid'
 
-  export default {
-  
+export default {
+    //ボトムナビ無し
+  layout: 'not_bottom',
       fetch ({ store, route,redirect }) {
     if (!store.state.user.user) {
       //console.log("リダイレクトなんだよなぁ")

@@ -16,8 +16,6 @@
         <nuxt />
     </v-content>
 
-
-<bottomNav/>
   </v-app>
   
 </template>

@@ -1,5 +1,19 @@
 <template>
+
   <v-container grid-list-md text-xs-center>
+    <div style="padding-bottom:50px">
+      <v-card>
+        <v-toolbar fixed light height="">
+          <v-btn icon>
+            <nuxt-link :to="{path: '/mypage/request_list'}">
+            <v-icon>arrow_back</v-icon>
+            </nuxt-link>
+          </v-btn>
+          <v-toolbar-title>受信した申請</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+      </v-card>
+    </div>
   <form action @submit.prevent="sendRequestApproval" class="form">
     <maincard />
     <div class="item">
@@ -90,6 +104,9 @@ import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import uuid from 'uuid'
 export default {
+  //ボトムナビ無しver
+  layout: 'not_bottom',
+
   fetch ({ store, route,redirect }) {
     if (!store.state.user.user) {
       if(route.name != "/login"){

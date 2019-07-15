@@ -1,6 +1,18 @@
 <template>
-      <v-container>
-
+  <v-container>
+      <div style="padding-bottom:50px">
+        <v-card>
+            <v-toolbar fixed light height="">
+              <v-btn icon>
+                <nuxt-link :to="{path: '/mypage/request_list'}">
+                <v-icon>arrow_back</v-icon>
+                </nuxt-link>
+              </v-btn>
+              <v-toolbar-title>取引中</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+          </v-card>
+      </div>
    <!-- ▼LINE風ここから -->
    <span v-if="endFlag">
         <v-layout justify-center>
@@ -73,7 +85,8 @@ import Vue from 'vue'
 Vue.prototype.$sanitize = sanitizeHTML
 
 export default {
-  
+  //ボトムナビ無し
+  layout: 'not_bottom',
   fetch ({ store, route,redirect }) {
     if (!store.state.user.user) {
       if(route.name != "/login"){
