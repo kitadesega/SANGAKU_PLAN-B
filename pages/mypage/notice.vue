@@ -11,33 +11,51 @@
       <v-card>
           <v-list three-line>
           <template v-for="(item, index) in item" >
-
             <v-divider v-if="index > 0" :key="index"></v-divider>
+            <div v-if="item.type == 'dealings'" :key="index">
+              <v-list-tile :key="index" :to="{path: '/mypage/dealings', query: {
+                  chatRoomId: item.chatroom_id,
+                  dealingId : item.dealings_id,
+                  dealingsKey:item.dealings_key}}
+                  ">
+                <v-list-tile>
+                  <img :src="item.image_url[0]"
+                  width="50px"
+                  height="50px">
+                </v-list-tile>
 
-            <v-list-tile :key="index" :to="{path: '/mypage/dealings', query: {
-                chatRoomId: item.chatroom_id,
-                dealingId : item.dealings_id,
-                dealingsKey:item.dealings_key}}">
+                <v-list-tile-content>
+                  <!-- <v-list-tile-title v-html="content.title"></v-list-tile-title> -->
+                  <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
+                  
+                </v-list-tile-content>
 
+                <v-list-tile-action>
+                  <v-icon>arrow_forward_ios</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+            </div>
 
-                    <v-list-tile>
-                      <img :src="item.image_url[0]"
-                      width="50px"
-                      height="50px">
-                    </v-list-tile>
+            <div v-if="item.type == 'request'" :key="index">
+              <v-list-tile :key="index" :to="{path: '/mypage/request_detail', query: {requestId: item.request_id }}">
+                <v-list-tile>
+                  <img :src="item.image_url[0]"
+                  width="50px"
+                  height="50px">
+                </v-list-tile>
 
-              <v-list-tile-content>
-                <!-- <v-list-tile-title v-html="content.title"></v-list-tile-title> -->
-                <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
-                
-              </v-list-tile-content>
+                <v-list-tile-content>
+                  <!-- <v-list-tile-title v-html="content.title"></v-list-tile-title> -->
+                  <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
+                  
+                </v-list-tile-content>
 
-              <v-list-tile-action>
-                <v-icon>arrow_forward_ios</v-icon>
-              </v-list-tile-action>
+                <v-list-tile-action>
+                  <v-icon>arrow_forward_ios</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+            </div>
 
-            </v-list-tile>
-            
           </template>
         </v-list>
       </v-card>

@@ -4,11 +4,11 @@
       <div style="padding-bottom:50px">
         <v-card>
             <v-toolbar fixed light height="">
-              <v-btn icon>
-                <nuxt-link :to="{path: '/'}">
-                <v-icon>arrow_back</v-icon>
-                </nuxt-link>
-              </v-btn>
+              <nuxt-link :to="{path: '/'}">
+                <v-btn icon >
+                  <v-icon>arrow_back</v-icon>
+                </v-btn>
+              </nuxt-link>
               <v-toolbar-title>{{item.item_name}}</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>

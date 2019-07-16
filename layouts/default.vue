@@ -59,21 +59,7 @@ export default {
         var docRef = db.collection('users').doc(this.user.uid).collection('notice').where("read_flag","==",false)
         //データ取得の条件を指定して取得
 
-         //通知数獲得
-        // docRef.onSnapshot(snapshot => {``
-        //     snapshot.forEach(item => {
-        //       console.log(item.doc.data());
-        //       // if(item.doc.data().read_flag == false){
-        //         console.log(item.doc.data());
-        //       // this.count.push(item.doc.data());
-        //       console.log("変化あっただろ")
-        //       tmp = tmp +1;
-        //       this.noticeCount = tmp;
-        //       // }
-             
-        //     });
-        // })
-db.collection('users').doc(this.user.uid).collection('notice').where("read_flag","==",false)
+    db.collection('users').doc(this.user.uid).collection('notice').where("read_flag","==",false)
     .onSnapshot(querySnapshot=> {
         this.noticeCount = 0
         querySnapshot.forEach(doc => {
