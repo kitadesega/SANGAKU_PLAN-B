@@ -24,7 +24,8 @@
           xs4
           v-for="(value,index) in filteredUsers" :key="index"
           style="margin-bottom:0px"
-          ><v-card light tile>
+          >
+              <v-card light tile>
               <nuxt-link :to="{path: '/item_detail', query: {itemId: value.itemId }}">
                 <img
                   :src= "value.image_url[0]"

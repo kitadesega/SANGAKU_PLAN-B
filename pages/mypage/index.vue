@@ -8,26 +8,21 @@
       </v-toolbar>
     </div>
         
-    <v-card>
+    <v-card style="padding-bottom:10px;">
       <!-- <button type="button" @click="logout">ログアウト</button> -->
-
-            <!-- <v-btn icon>
-              <v-icon>search</v-icon>
-            </v-btn> -->
       <div style="margin-left:10px;padding-top:10px;">
-        <v-avatar
-      size="56px" >
+        <v-avatar size="56px" >
           <img
             :src="user.photoURL"
           >
-          </v-avatar><a class="notNewLine">
-          {{user.displayName}}
-        </a>
-
+          </v-avatar>
+          <a class="notNewLine">
+            {{user.displayName}}
+          </a>
       </div>
     </v-card>
     
-    <v-card style="padding-top:10px;padding-bottom:10px;">
+    <v-card style="margin-top:20px;padding-top:10px;padding-bottom:10px;">
     <!-- <p>いいね！・閲覧履歴</p>
     <p>出品したお土産</p>
     <p>交換した商品</p>
@@ -36,12 +31,12 @@
     <nuxt-link to="/mypage/item_list"><p style="font-size:1.1em">出品したお土産</p></nuxt-link>
     <nuxt-link to="/mypage/request_list"><p style="font-size:1.1em">申請・取引</p></nuxt-link>
     </v-card>
-    <v-card>
+    <!-- <v-card>
         <p><span class="cyan--text">ガイド・お問い合わせ</span></p>
         <p>ガイド</p>
         <p>お問い合わせ</p>
         <p>Q&A</p>
-    </v-card>
+    </v-card> -->
   </div>
 </template>
 

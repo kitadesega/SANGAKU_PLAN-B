@@ -17,7 +17,7 @@
     </v-content>
 
 
-<bottomNav :noticeCount = "noticeCount"/>
+  <bottomNav :noticeCount = "noticeCount"/>
   </v-app>
   
 </template>

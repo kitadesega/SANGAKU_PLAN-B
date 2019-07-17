@@ -15,12 +15,13 @@
         to = "/mypage/notice"
       >
         <span>お知らせ</span>
-        <v-badge color="red">
-      <template v-slot:badge>
-        <span>{{noticeCount}}</span>
-      </template>
+        
+      <v-badge color="red">
+        <template v-slot:badge v-if="noticeCount > 0 ">
+          <span>{{noticeCount}}</span>
+        </template>
         <v-icon>notifications_none</v-icon>
-           </v-badge>
+      </v-badge>
       </v-btn>
 
       <v-btn

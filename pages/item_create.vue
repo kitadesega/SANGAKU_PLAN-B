@@ -303,6 +303,7 @@ import uuid from 'uuid'
           text: this.input,
           category: this.category,
           image_url: this.imageUrl,
+          display_flg:true,
           created_at:new Date(),
         };
         // ユーザーの出品一覧に対して

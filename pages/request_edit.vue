@@ -17,6 +17,8 @@
       <v-spacer></v-spacer>
     </v-card-actions>
     <v-container grid-list-md text-xs-center>
+      <h2 class="l-single-head">交換に出す候補を選択</h2>
+      <p style="margin-top:-20px;padding-bottom:15px;font-size:14px">&emsp;最大3つまで選択できます</p>
     <form action @submit.prevent="sendRequest" class="form">
       <v-layout row wrap class="scroll">
         <v-flex
@@ -25,22 +27,26 @@
           v-for="(value,index) in item" :key="index"
           style="margin-left:0px"
         > 
-          <input type="checkbox" 
+
+          <label :for="value.item_id">
+            <v-card flat tile style="width:100%">
+          <v-checkbox
           :id="value.item_id" 
           :value="value.item_id" 
           v-model="checkedItems"
-          style="" 
+          style="padding:0" 
+          color="orange"
           v-on:change="selectCount"
-          >
-          <label :for="value.item_id">
-            <v-card flat tile style="width:100%">
+          ></v-checkbox>
               <img
                 :src= "value.image_url[0]"
                 width="100%"
                 height="100px"
                 style = "object-fit: cover"
               >
-              <p style="text-align:center">{{value.title}}</p>
+              <p class="notNewLine">
+                {{value.item_name}}
+              </p>
             </v-card>
           </label>
         </v-flex>
@@ -213,8 +219,20 @@ export default {
 </script>
 <style>
 
-        .scroll {
-        height: 400px;
-        overflow-y: scroll;
-    }
+  .scroll {
+  height: 400px;
+  overflow-y: scroll;
+  }
+  .l-single-head {
+  padding: 24px 8px;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
+}
+.notNewLine{
+  text-align:center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

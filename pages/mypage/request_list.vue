@@ -69,8 +69,8 @@
                   <v-list-tile>
                     <img :src="item.item_image"
                     width="100px"
-              height="70px"
-              style = "object-fit: cover">
+                    height="70px"
+                    style = "object-fit: cover">
                   </v-list-tile>
 
                   <v-list-tile-content>
