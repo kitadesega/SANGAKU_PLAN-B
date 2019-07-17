@@ -16,7 +16,8 @@
               <v-list-tile :key="index" :to="{path: '/mypage/dealings', query: {
                   chatRoomId: item.chatroom_id,
                   dealingId : item.dealings_id,
-                  dealingsKey:item.dealings_key}}
+                  dealingsKey:item.dealings_key,
+                  backLink : backLink}}
                   ">
                 <v-list-tile>
                   <img :src="item.image_url[0]"
@@ -37,7 +38,9 @@
             </div>
 
             <div v-if="item.type == 'request'" :key="index">
-              <v-list-tile :key="index" :to="{path: '/mypage/request_detail', query: {requestId: item.request_id }}">
+              <v-list-tile :key="index" :to="{path: '/mypage/request_detail', query: {
+              requestId: item.link_id,
+              backLink: backLink }}">
                 <v-list-tile>
                   <img :src="item.image_url[0]"
                   width="50px"
@@ -80,7 +83,8 @@ export default {
   data() {
     return {
       user: {},  // ユーザー情報
-      item:[]
+      item:[],
+      backLink :"/mypage/notice"
     }
   },
   created() {
@@ -97,7 +101,7 @@ export default {
         docRef.onSnapshot(snapshot => {
             snapshot.docChanges().forEach(item => {
               this.item.push(item.doc.data());
-              // console.log(item.doc.data())
+               console.log(item.doc.data())
             });
         })
 

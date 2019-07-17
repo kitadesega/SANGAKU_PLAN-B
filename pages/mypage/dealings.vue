@@ -4,7 +4,7 @@
         <v-card>
             <v-toolbar fixed light height="">
               <v-btn icon>
-                <nuxt-link :to="{path: '/mypage/request_list'}">
+                <nuxt-link :to="{path: backLink}">
                 <v-icon>arrow_back</v-icon>
                 </nuxt-link>
               </v-btn>
@@ -123,7 +123,8 @@ export default {
     return {
       chatRoomId: context.query['chatRoomId'],
       dealingsId: context.query['dealingId'],
-      dealingsKey: context.query['dealingsKey']
+      dealingsKey: context.query['dealingsKey'],
+      backLink: context.query['backLink'],
     }
   },
   

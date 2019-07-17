@@ -37,7 +37,9 @@
       <v-tab-item value="tab-1">
           <v-list three-line>
             <div v-for="(item, index) in item" :key="index" >
-              <nuxt-link :to="{path: '/mypage/request_detail', query: {requestId: item.request_id }}">
+              <nuxt-link :to="{path: '/mypage/request_detail', query: 
+              {requestId: item.request_id,
+              backLink: backLink}}">
                 <v-list-tile
                   :key="item.user_name"
                   user_photo
@@ -59,7 +61,7 @@
           <v-list three-line>
             <div v-for="(item, index) in dealings" :key="index" >
               <nuxt-link :to="{path: '/mypage/dealings', query: {chatRoomId: item.chatroom_id,
-              dealingId : item.dealings_id, dealingsKey:item.dealings_key}}">
+              dealingId : item.dealings_id, dealingsKey:item.dealings_key,backLink:backLink}}">
                 <v-list-tile
                   :key="item.item_id"
                   target_user_photo
@@ -135,6 +137,7 @@ export default {
       dealings:[],
       myRequest:[],
       tab: null,
+      backLink: '/mypage/request_list'
     }
   },
   created() {

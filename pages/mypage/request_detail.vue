@@ -5,7 +5,7 @@
       <v-card>
         <v-toolbar fixed light height="">
           <v-btn icon>
-            <nuxt-link :to="{path: '/mypage/request_list'}">
+            <nuxt-link :to="{path: backLink}">
             <v-icon>arrow_back</v-icon>
             </nuxt-link>
           </v-btn>
@@ -132,12 +132,14 @@ export default {
       checked:false,
       btnColor1:"",
       btnColor2:"",
-      btnColor3:""
+      btnColor3:"",
+      backLink : ""
     }
   },
   asyncData(context) {
     return {
-      requestId: context.query['requestId']
+      requestId: context.query['requestId'],
+      backLink: context.query['backLink']
     }
   },
   created() {
