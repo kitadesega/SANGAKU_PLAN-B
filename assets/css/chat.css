@@ -77,12 +77,13 @@
     height: 50px;
 }
 
-.line__container .line .line_left .text {
+.line__contents .line__left .text pre {
     width: 250px;
     word-wrap: normal;
     display: inline-block;
     vertical-align: middle;
     word-break: break-all;
+    white-space: pre-wrap;
 }
 
 
