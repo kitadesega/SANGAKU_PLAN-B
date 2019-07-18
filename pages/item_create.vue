@@ -258,7 +258,7 @@ import uuid from 'uuid'
         };
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
-          this.imageFile.push(files[0]); // this is an image file that can be sent to server...
+          this.imageFile.push(files[0]); 
           console.log("pushed:"+this.imageName);
         });
       } 

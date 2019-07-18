@@ -29,6 +29,7 @@
     <p>{{targetItem.item_name}}</p>
     <v-layout row wrap >
       
+      <!-- 1つ目の候補 -->
       <v-flex
         xs4
         md3
@@ -50,6 +51,7 @@
         </v-card>
       </v-flex>
 
+      <!-- 2つ目の候補 -->
       <v-flex
         xs4
         md3
@@ -71,6 +73,7 @@
         </v-card>
          
       </v-flex>
+      <!-- ３つ目の候補 -->
       <v-flex
         xs4
         md3

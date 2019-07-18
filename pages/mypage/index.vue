@@ -23,20 +23,10 @@
     </v-card>
     
     <v-card style="margin-top:20px;padding-top:10px;padding-bottom:10px;">
-    <!-- <p>いいね！・閲覧履歴</p>
-    <p>出品したお土産</p>
-    <p>交換した商品</p>
-    <p>取引中のお土産</p>
-    -->
     <nuxt-link to="/mypage/item_list"><p style="font-size:1.1em">出品したお土産</p></nuxt-link>
     <nuxt-link to="/mypage/request_list"><p style="font-size:1.1em">申請・取引</p></nuxt-link>
     </v-card>
-    <!-- <v-card>
-        <p><span class="cyan--text">ガイド・お問い合わせ</span></p>
-        <p>ガイド</p>
-        <p>お問い合わせ</p>
-        <p>Q&A</p>
-    </v-card> -->
+
   </div>
 </template>
 

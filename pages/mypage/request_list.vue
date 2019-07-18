@@ -34,6 +34,7 @@
 
     </v-tabs>
     <v-tabs-items v-model="tab">
+      <!-- 送られてきた申請 -->
       <v-tab-item value="tab-1">
           <v-list three-line>
             <div v-for="(item, index) in item" :key="index" >
@@ -57,6 +58,7 @@
             </div>
           </v-list>
       </v-tab-item>
+      <!-- 取引中 -->
       <v-tab-item value="tab-2">
           <v-list three-line>
             <div v-for="(item, index) in dealings" :key="index" >
@@ -82,10 +84,11 @@
             </div>
           </v-list>
       </v-tab-item>
+      <!-- 送信した申請 -->
         <v-tab-item value="tab-3">
           <v-list three-line>
             <div v-for="(item, index) in myRequest" :key="index" >
-              <nuxt-link :to="{path: '/mypage/dealings', query: {dealingsId: item.chatroom_id }}">
+              <!-- <nuxt-link :to="{path: '/mypage/dealings', query: {dealingsId: item.chatroom_id }}"> -->
                 <v-list-tile
                   :key="item.item_id"
                   target_user_photo
@@ -103,7 +106,7 @@
                     <v-list-tile-sub-title v-html="item.text"></v-list-tile-sub-title>
                   </v-list-tile-content>
                 </v-list-tile>
-              </nuxt-link>
+              <!-- </nuxt-link> -->
             </div>
           </v-list>
       </v-tab-item>
