@@ -1,11 +1,13 @@
 <template>
-  <v-layout justify-center>
-    <div style="margin-left:30px">
-      <v-btn color="info" @click="twitterLogin">Twitterでログイン</v-btn>
-      <v-spacer />
-      <v-btn color="error" @click="googleLogin">Googleでログイン</v-btn>
-    </div>
-  </v-layout>
+  <div style="margin-top:100px;">
+    <v-layout justify-center>
+      <div style="margin-left:30px">
+        <v-btn color="info" @click="twitterLogin">Twitterでログイン</v-btn>
+        <v-spacer />
+        <v-btn color="error" @click="googleLogin">Googleでログイン</v-btn>
+      </div>
+    </v-layout>
+  </div>
 </template>
 
 <script>
