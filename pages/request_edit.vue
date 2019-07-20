@@ -44,7 +44,7 @@
                 height="100px"
                 style = "object-fit: cover"
               >
-              <p class="notNewLine">
+              <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
                 {{value.item_name}}
               </p>
             </v-card>

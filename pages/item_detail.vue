@@ -9,7 +9,7 @@
                   <v-icon>arrow_back</v-icon>
                 </v-btn>
               </nuxt-link>
-              <v-toolbar-title>{{item.item_name}}</v-toolbar-title>
+              <v-toolbar-title class="notNewLine">{{item.item_name}}</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
           </v-card>
@@ -184,22 +184,26 @@ layout: 'not_bottom',
 
 </script>
 
-<style>
+<style scoped>
 #item_name{
 text-align: center;
 background-color:darkgrey;
 }
-</style>
-<style>
+
 #kategori{
   text-align: center;
 }
-</style>
-<style>
 #syonin{
   text-align: center;
 }
 a{
   text-decoration-line: none;
+}
+.notNewLine{
+  width:250px;
+  text-align:center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

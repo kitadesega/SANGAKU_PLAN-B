@@ -25,7 +25,7 @@
           v-for="(value,index) in filteredUsers" :key="index"
           style="margin-bottom:0px"
           >
-              <v-card light tile>
+              <v-card light tile style="overflow: hidden">
               <nuxt-link :to="{path: '/item_detail', query: {itemId: value.itemId }}">
                 <img
                   :src= "value.image_url[0]"
@@ -33,7 +33,7 @@
                   width = "100%"
                   height = "110px"
                 >
-                <p class="notNewLine" style="text-align:center">&nbsp;{{value.item_name}}</p>
+                <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">&nbsp;{{value.item_name}}</p>
                 </nuxt-link>
                 </v-card>
           </v-flex>
@@ -141,6 +141,7 @@ p{
 }
 /*改行させるかよ*/
 .notNewLine{
+  width:50px;
   text-align:center;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -11,7 +11,7 @@
       <v-btn
         color="teal"
         flat
-        value="unko"
+        value="notice"
         to = "/mypage/notice"
       >
         <span>お知らせ</span>
@@ -37,7 +37,7 @@
       <v-btn
         color="teal"
         flat
-        value="unko"
+        value="mypage"
         to = "/mypage/"
       >
         <span>マイページ</span>

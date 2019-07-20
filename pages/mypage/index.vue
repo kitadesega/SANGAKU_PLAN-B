@@ -9,7 +9,7 @@
     </div>
         
     <v-card style="padding-bottom:10px;">
-      <!-- <button type="button" @click="logout">ログアウト</button> -->
+      <button type="button" @click="logout">ログアウト</button>
       <div style="margin-left:10px;padding-top:10px;">
         <v-avatar size="56px" >
           <img
