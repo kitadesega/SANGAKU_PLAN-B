@@ -117,6 +117,31 @@
           ></v-select>
         </v-container>
       </v-flex>
+
+      <v-flex xs12 sm6 d-flex style="background-color:white">
+        <v-container>
+    <v-dialog v-model="dialog" scrollable max-width="300px">
+      <template v-slot:activator="{ on }">
+        <v-btn color="primary" dark v-on="on">国名選択</v-btn>
+      </template>
+      <v-card>
+        <v-card-title>国名選択</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text style="height: 300px;">
+          <v-radio-group v-model="country" column>
+            <v-radio v-for="item in countryItems" :key="item" :label="item" :value="item"></v-radio>
+          </v-radio-group>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn color="blue darken-1" text @click="dialog = false">キャンセル</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">決定</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+        </v-container>
+      </v-flex>
+
       <v-layout justify-center>
         <v-btn color="red" round large type="submit" style="width:70%;height:60px;color:white">出品する</v-btn>
       </v-layout>
@@ -172,7 +197,9 @@ import uuid from 'uuid'
       flag: "",
       imageUrl: [],
       loading: true,
-      categoryItems: ['レディース', 'メンズ', 'ベビー・キッズ', 'インテリア・住まい・小物','本・音楽・ゲーム','おもちゃ・ホビー・グッズ','コスメ・香水・美容','家電・スマホ・カメラ','スポーツ・レジャー','ハンドメイド','チケット','自動車・オートバイ','その他']
+      categoryItems: ['レディース', 'メンズ', 'ベビー・キッズ', 'インテリア・住まい・小物','食品','本・音楽・ゲーム','おもちゃ・ホビー・グッズ','コスメ・香水・美容','家電・スマホ・カメラ','スポーツ・レジャー','ハンドメイド','チケット','自動車・オートバイ','その他'],
+      countryItems:['アメリカ合衆国','中華人民共和国','大韓民国','台湾','タイ','シンガポール','ベトナム','香港','インドネシア','ドイツ','その他'],
+      country:''
     }
     //console.log(user);
   },
@@ -290,6 +317,8 @@ import uuid from 'uuid'
         item_text: this.input,
         category: this.category,
         image_url: this.imageUrl,
+        display_flg:true,
+        country:this.country,
         created_at:new Date(),
       };
       //itemコレクションに対して
@@ -304,6 +333,7 @@ import uuid from 'uuid'
           category: this.category,
           image_url: this.imageUrl,
           display_flg:true,
+          country:this.country,
           created_at:new Date(),
         };
         // ユーザーの出品一覧に対して

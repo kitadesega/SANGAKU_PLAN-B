@@ -33,6 +33,7 @@
                   width = "100%"
                   height = "110px"
                 >
+                <p style="background-color:darkgrey;">{{value.country}}</p>
                 <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">&nbsp;{{value.item_name}}</p>
                 </nuxt-link>
                 </v-card>
@@ -97,7 +98,8 @@ export default {
               let data = {
               'itemId': item.doc.id,
               'item_name': item.doc.data().item_name,
-              'image_url': item.doc.data().image_url
+              'image_url': item.doc.data().image_url,
+              'country': item.doc.data().country,
             }
             this.item.push(data);
             this.loading = true

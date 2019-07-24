@@ -39,7 +39,11 @@
             
               <v-card flat tile class="d-flex">
 
-                <v-carousel>
+                <v-carousel
+                  hide-delimiters
+                  light
+                  height="250px"
+                >
                   <v-carousel-item
                     v-for="(item,i) in item.image_url"
                     :key="i"
@@ -53,31 +57,66 @@
               </v-card>
             </v-flex>
           </v-layout>
-            <v-layout column fill-height >      
-              <v-spacer></v-spacer>
+          <v-layout column fill-height >      
+            <v-flex shrink xs1>
+            <br>
+            <div id="heading">商品名</div>
+            </v-flex>
+          </v-layout>
+          <v-layout column fill-height >      
+            <v-spacer></v-spacer>
               <v-flex shrink xs1>
               <div id="item_name">{{item.item_name}}</div>
               </v-flex>
-            </v-layout>
-          <br><div id ="kategori">
-          <v-btn>{{item.category}}</v-btn>
-          </div>
-          <br><pre>{{item.item_text}}</pre>
+          </v-layout>
+          <v-layout column fill-height >      
+              <v-flex shrink xs1>
+              <br>
+              <div id="heading">商品説明</div>
+            </v-flex>
+          </v-layout>
+          <p id="syohin_text">{{item.item_text}}</p>
           <br>
-          <div id="syonin">
-            <nuxt-link :to="{path: '/request_edit', query: {itemId: itemId ,userId:item.user_id}}">
-                <v-btn large round color="yellow">申請を作成</v-btn>
-            </nuxt-link>
-          </div>
-            <v-flex xs12>
-            <div id ="kategori"><v-btn @click="click" round large type="submit">書き込み</v-btn>
-            <nuxt-link :to="{path: '/comment', query: {itemId: itemId }}">
-            <v-btn>コメント</v-btn>
-            </nuxt-link>
-            </div>
-            <!-- <v-btn round large @click="setUser(input)" >送信する</v-btn> -->
-          </v-flex>
+          <v-layout column fill-height >      
+              <v-flex shrink xs1>
+              <br>
+              <div id="heading">カテゴリー</div>
+            </v-flex>
+          </v-layout>
+          <v-layout column fill-height >      
+            <v-spacer></v-spacer>
+              <v-flex shrink xs1>
+              <div>{{item.category}}</div>
+              </v-flex>
+          </v-layout>
+          <v-layout column fill-height >      
+              <v-flex shrink xs1>
+              <br>
+              <div id="heading">国</div>
+            </v-flex>
+          </v-layout>
+          <v-layout column fill-height >      
+            <v-spacer></v-spacer>
+              <v-flex shrink xs1>
+              <div>{{item.county}}</div>
+              </v-flex>
+          </v-layout>
         </v-container>
+    </v-card>
+    <v-card height="60px" flat> 
+      <v-footer height="60px" :fixed=true>
+
+        <nuxt-link :to="{path: '/comment', query: {itemId: itemId }}">
+          <v-btn round>コメント</v-btn>
+        </nuxt-link>
+
+        <v-btn @click="click" large color="yellow" type="submit">書き込み</v-btn>
+
+        <nuxt-link :to="{path: '/request_edit', query: {itemId: itemId ,userId:item.user_id}}">
+          <v-btn large dark color="red">申請を作成</v-btn>
+        </nuxt-link>
+
+      </v-footer>
     </v-card> 
     </v-flex>
 
@@ -184,26 +223,29 @@ layout: 'not_bottom',
 
 </script>
 
-<style scoped>
-#item_name{
-text-align: center;
-background-color:darkgrey;
+<style>
+#heading{
+background-color: lightgray;
+color: #009999;
 }
-
+#item_name{
+font-weight: 600;
+}
+#syohin_text{
+   word-wrap: normal;
+   display: inline-block;
+   vertical-align: middle;
+   word-break: break-all;
+}
 #kategori{
   text-align: center;
 }
+</style>
+<style>
 #syonin{
   text-align: center;
 }
 a{
   text-decoration-line: none;
-}
-.notNewLine{
-  width:250px;
-  text-align:center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 </style>
