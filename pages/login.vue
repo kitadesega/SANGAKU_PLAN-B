@@ -26,7 +26,7 @@ export default {
       if (user) {
         console.log(user.uid);
         // User is signed in.
-        this.$store.dispatch('user/fecthUser', "id" )
+        this.$store.dispatch('user/fecthUser', user.uid)
         this.$router.push("/mypage")
         } else {
           this.$router.push("/login")
@@ -43,7 +43,7 @@ export default {
       firebase.auth().signInWithPopup(provider)
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          this.$store.dispatch('user/fecthUser', "id" )
+          this.$store.dispatch('user/fecthUser', user.uid )
           this.$router.push("/mypage")
           // console.log("リダイレクトするはず")
         } else {

@@ -79,7 +79,10 @@ p {
   margin-left: 15px;
   margin-top: 10px;
 }
-
+a{
+  text-decoration: none !important;
+  color:black;
+}
 /*改行させるかよ*/
 .notNewLine{
   text-align:center;

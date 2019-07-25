@@ -87,6 +87,7 @@ export default {
       //userにログインしているユーザーのデータを入れる
       this.user = user ? user : {}
       //firestore設定
+      console.log(this.$store.state.user.user)
       const db = firebase.firestore()
       //itemコレクションを選択（コレクションについては各自調べてください）
       var docRef = db.collection("item").orderBy("created_at", "desc");
@@ -132,7 +133,7 @@ export default {
   
 };
 </script>
-<style>
+<style scoped>
 a{
   text-decoration: none !important;
   color:black;

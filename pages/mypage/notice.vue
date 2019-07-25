@@ -12,7 +12,7 @@
           <v-list three-line>
           <template v-for="(item, index) in item" >
             <v-divider v-if="index > 0" :key="index"></v-divider>
-            <div v-if="item.type == 'dealings'" :key="index">
+            <div v-if="item.type === 'dealings'" :key="index">
               <v-list-tile :key="index" :to="{path: '/mypage/dealings', query: {
                   chatRoomId: item.chatroom_id,
                   dealingId : item.dealings_id,
@@ -20,7 +20,7 @@
                   backLink : backLink}}
                   ">
                 <v-list-tile>
-                  <img :src="item.image_url[0]"
+                  <img :src="item.image_url"
                   width="50px"
                   height="50px">
                 </v-list-tile>
@@ -37,7 +37,7 @@
               </v-list-tile>
             </div>
 
-            <div v-if="item.type == 'request'" :key="index">
+            <div v-else-if="item.type === 'request'" :key="index">
               <v-list-tile :key="index" :to="{path: '/mypage/request_detail', query: {
               requestId: item.link_id,
               backLink: backLink }}">
@@ -82,32 +82,38 @@ export default {
   },
   data() {
     return {
-      user: {},  // ユーザー情報
+      user: '',  // ユーザー情報
       item:[],
       backLink :"/mypage/notice"
     }
   },
   created() {
-    const routeName = this.$route.name;
-    if(routeName === 'mypage-notice'){
-      firebase.auth().onAuthStateChanged(user => {
+
+      
           //userにログインしているユーザーのデータを入れる
-        this.user = user ? user : {}
+        this.user = this.$store.state.user.user
+        // this.item = [];
         const db = firebase.firestore()
-        var docRef = db.collection('users').doc(this.user.uid).collection('notice')
+        var docRef = db.collection('users').doc(this.user).collection('notice')
         //データ取得の条件を指定して取得
 
           //データ取得
-        docRef.onSnapshot(snapshot => {
-            snapshot.docChanges().forEach(item => {
-              this.item.push(item.doc.data());
-               console.log(item.doc.data())
-            });
-        })
+        // docRef.get().then(snapshot => {
+        //     snapshot.forEach(item => {
+        //       this.item.push(item.doc.data());
+        //        console.log(item.doc.data())
+        //     });
+        // })
+        db.collection('users').doc(this.user).collection('notice').get().then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+        // doc.data() is never undefined for query doc snapshots
+        this.item.push(doc.data());
+    });
+});
 
-        db.collection('users').doc(this.user.uid).collection('notice').get().then(querySnapshot => {
+        db.collection('users').doc(this.user).collection('notice').get().then(querySnapshot => {
           querySnapshot.forEach(doc => {
-              var cityRef = db.collection('users').doc(this.user.uid).collection('notice').doc(doc.id);
+              var cityRef = db.collection('users').doc(this.user).collection('notice').doc(doc.id);
               return cityRef.update({
                 read_flag: true
               });
@@ -115,8 +121,8 @@ export default {
           });
         });
 
-      })
-    }
+     
+    
     
   },
   methods : {

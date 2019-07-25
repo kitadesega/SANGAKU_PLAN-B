@@ -67,6 +67,7 @@
           </v-btn>
       </v-layout>
       <input
+        id="file"
         multiple="multiple"
         type="file"
         style="display: none"
@@ -75,7 +76,7 @@
         @change="onFilePicked"
       />
 
-      <v-dialog v-model="dialog" scrollable max-width="300px">
+      <v-dialog v-model="error_dialog" scrollable max-width="300px">
         <v-card>
           <v-card-text>{{Message}}</v-card-text>
           <v-divider></v-divider>
@@ -139,6 +140,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+            {{country}}
         </v-container>
       </v-flex>
 
@@ -191,6 +193,7 @@ import uuid from 'uuid'
       photo: null,
       photo_url: null,
       dialog: false,
+      error_dialog: false,
       imageName: [],
       imageFile: [],
       uploadedImage: [],
@@ -271,25 +274,54 @@ import uuid from 'uuid'
         })
       },
       pickFile() {
-      this.$refs.image.click();
-    },
-    //ファイルの選択変えた時に動きそう
-     onFilePicked(e) {
-      const files = e.target.files;
-      if (files[0] !== undefined) {
-        this.imageName.push(files[0].name);
-        const fr = new FileReader();
-        fr.onload = e => {
-          this.flag = "tinpo";
-          this.uploadedImage.push(e.target.result);
-        };
-        fr.readAsDataURL(files[0]);
-        fr.addEventListener("load", () => {
-          this.imageFile.push(files[0]); 
-          console.log("pushed:"+this.imageName);
-        });
-      } 
-    },
+        var obj = document.getElementById("file");
+        obj.value = "";
+        if(this.imageName[2] !== undefined){
+          //画像が三つアップロードされている場合警告
+          this.Message = "画像は三つ以上選択できません"
+          this.error_dialog = true;
+        }else{
+          console.log("ikudo");
+          this.$refs.image.click();
+        }
+      },
+      //ファイルの選択変えた時に動きそう
+      onFilePicked(e) {
+        console.log("ofp");
+        var files = e.target.files;
+    　　//同名のファイルが選択されたときにエラーを吐かせる
+        var sameNameCheck = false;
+        for(var i = 0;i < files.length;i++){
+          for(var j = 0;j < this.imageName.length;j++){
+            if(files[i].name === this.imageName[j]){
+              sameNameCheck = true;
+            }
+          }
+        }
+        //画像アップロード時にファイルが四つ以上選択された場合警告
+        if(files.length + this.imageName.length > 3){
+          this.Message = "画像は三つ以上選択できません";
+          this.error_dialog = true;
+        }else if(sameNameCheck){
+          this.Message = "同じ名前のファイルは選択できません";
+          this.error_dialog = true;
+              console.log("nakami:"+this.imageFile);
+        }else{
+          for (var i = 0, f; f = files[i]; i++) {
+            this.imageName.push(files[i].name);
+            this.imageFile.push(files[i]); // this is an image file that can be sent to server...
+            var fr = new FileReader;
+            fr.readAsDataURL(f);
+            fr.onload = e => {
+              this.uploadedImage.push(e.target.result);
+            };
+            fr.addEventListener("load", () => {
+              console.log("nakami:"+this.imageName);
+              console.log("nakami:"+this.imageFile);
+            });
+          }
+        }
+      },
       remove(number) {
         this.imageName.splice(number,1);
         this.uploadedImage.splice(number,1);
