@@ -41,7 +41,7 @@
               <div v-for="(value,index) in text" :key="index">
               {{ value.name }}
                 <div class="line__left">
-                  <img src="~/assets/shouhin.png">
+                  <img :src="value.image">
                   <div class="text">
                     <pre>{{value.message}}</pre>
                 
@@ -193,6 +193,7 @@ export default {
           var data = {
           id: this.user.uid,
           name: this.user.displayName,
+          image:this.user.photoURL,
           message: this.message,
           created_at:new Date(),
         };

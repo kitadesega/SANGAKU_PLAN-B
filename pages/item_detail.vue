@@ -157,16 +157,7 @@ import uuid from 'uuid'
 
 export default {
 layout: 'not_bottom',
-  fetch ({ store, route,redirect }) {
-    if (!store.state.user.user) {
-      if(route.name != "/login"){
-      return redirect('/login')
-      }else{
-       return redirect('/mypage/')
-      }
-    }
-    
-  },
+
   data() {
     return {
       user: {},  // ユーザー情報

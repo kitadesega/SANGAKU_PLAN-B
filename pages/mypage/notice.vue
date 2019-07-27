@@ -104,8 +104,9 @@ export default {
         //        console.log(item.doc.data())
         //     });
         // })
-        db.collection('users').doc(this.user).collection('notice').get().then(querySnapshot => {
-    querySnapshot.forEach(doc => {
+        console.log(this.user);
+        db.collection('users').doc(this.user).collection('notice').orderBy("created_at", "desc").get().then(querySnapshot => {
+    querySnapshot.forEach(doc=> {
         // doc.data() is never undefined for query doc snapshots
         this.item.push(doc.data());
     });

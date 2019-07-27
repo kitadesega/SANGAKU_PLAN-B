@@ -62,16 +62,7 @@ import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
-  fetch ({ store, route,redirect }) {
-    if (!store.state.user.user) {
-      if(route.name != "/login"){
-      return redirect('/login')
-      }else{
-       return redirect('/mypage/')
-      }
-    }
-    
-  },
+
     data() {
     return {
       searchWood: "",

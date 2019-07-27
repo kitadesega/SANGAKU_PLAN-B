@@ -65,7 +65,7 @@ export default {
       firebase.auth().onAuthStateChanged(user => {
       if (user) {
         // User is signed in.
-        this.$store.dispatch('user/fecthUser', "id" )
+        this.$store.dispatch('user/fecthUser', user.uid )
         this.$router.push("/mypage")
         } else {
           this.$router.push("/login")

@@ -195,7 +195,8 @@ export default {
               message:this.user.displayName + "さんから申請が届きました。",
               type:"request",
               link_id:this.docRefId,
-              read_flag:false
+              read_flag:false,
+              created_at:new Date(),
             }
           db.collection('users').doc(this.userId).collection('notice').doc().set(data5)
           db.collection('users').doc(this.userId).collection('request').doc(this.docRefId).set(data4)
