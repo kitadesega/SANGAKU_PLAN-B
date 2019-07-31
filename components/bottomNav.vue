@@ -2,7 +2,7 @@
  <v-card height="60px" flat> 
    <v-footer>
  <v-bottom-nav :value="true" :active.sync="bottomNav"
- :fixed=true >
+ :fixed=true style="z-index:9999">
       <v-btn color="teal" flat value="recent" to = "/" >
         <span>ホーム</span>
         <v-icon>home</v-icon>

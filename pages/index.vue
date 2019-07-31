@@ -161,16 +161,16 @@ p{
     content: "";
     top: 0;
     left: 0;
-    border-bottom: 3em solid transparent;
-    border-left: 3em solid #c12748; /* ラベルの色はここで変更 */
+    border-bottom: 3.5em solid transparent;
+    border-left: 3.5em solid #ea352d; /* ラベルの色はここで変更 */
     position: absolute;
     z-index: 100;
 }
 .triangle::after {
     content: "取引済";
-    font-size: 0.5em; 
+    font-size: 0.8em; 
     display: block;
-    top: 5px;
+    top: 10px;
     transform: rotate(-45deg);
     color: #fff; /* 文字色はここで変更 */
     left: 0;
