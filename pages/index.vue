@@ -25,7 +25,7 @@
           v-for="(value,index) in filteredUsers" :key="index"
           style="margin-bottom:0px"
           >
-              <v-card light tile style="overflow: hidden">
+              <v-card light tile style="overflow: hidden"  v-bind:class="{ triangle: !value.display_flg }">
               <nuxt-link :to="{path: '/item_detail', query: {itemId: value.itemId }}">
                 <img
                   :src= "value.image_url[0]"
@@ -34,7 +34,10 @@
                   height = "110px"
                 >
                 <p style="background-color:darkgrey;">{{value.country}}</p>
-                <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">&nbsp;{{value.item_name}}</p>
+                <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+                  <span v-if="value.display_flg === false" style="color:red;">
+                    ※取引済
+                    </span>&nbsp;{{value.item_name}}</p>
                 </nuxt-link>
                 </v-card>
           </v-flex>
@@ -92,6 +95,7 @@ export default {
               'item_name': item.doc.data().item_name,
               'image_url': item.doc.data().image_url,
               'country': item.doc.data().country,
+              'display_flg': item.doc.data().display_flg,
             }
             this.item.push(data);
             this.loading = true
@@ -140,5 +144,37 @@ p{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* 商品に見立てた枠 */
+.triangle {
+    /* background: #fafafa;
+    width: 250px;
+    height: 250px;
+    border: #eee 1px solid;
+    margin: 0 auto; */
+    position: relative;
+}
+
+/* ラベル部分 左上に表示 */
+.triangle::before {
+    content: "";
+    top: 0;
+    left: 0;
+    border-bottom: 3em solid transparent;
+    border-left: 3em solid #c12748; /* ラベルの色はここで変更 */
+    position: absolute;
+    z-index: 100;
+}
+.triangle::after {
+    content: "取引済";
+    font-size: 0.5em; 
+    display: block;
+    top: 5px;
+    transform: rotate(-45deg);
+    color: #fff; /* 文字色はここで変更 */
+    left: 0;
+    position: absolute;
+    z-index: 101;
 }
 </style>

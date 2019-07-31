@@ -97,7 +97,9 @@
     </v-layout>
    <p>{{requestData.text}}</p>
     <!-- <span>Picked: {{ picked }}</span> -->
+    <v-btn class="align-center" large round color="" style="" v-on:click="cancel()">申請を断る</v-btn>
     <v-btn class="align-center" type="submit" :disabled="!checked" large round color="yellow" >申請を許可</v-btn>
+    
   </form>
   </v-container>
 </template>
@@ -270,6 +272,13 @@ export default {
           }
 
 
+          db.collection("item").doc(this.targetItem.item_id).update({
+              display_flg: false
+          })
+
+          db.collection("item").doc(this.picked.item_id).update({
+              display_flg: false
+          })
 
           //受け取り判定に使う取引コレクション
           db.collection('dealings').doc(dealings_id).set(data3)
@@ -278,7 +287,7 @@ export default {
           db.collection("users").doc(this.user.uid).collection("request").doc(this.requestId).delete()
 
           //相手側の送信したリクエストを削除
-          db.collection("users").doc(this.user.uid).collection("sendRequest").doc(this.requestId).delete()
+          db.collection("users").doc(this.requestData.user_id).collection("sendRequest").doc(this.requestId).delete()
 
           //相手側に取引データを入れる
           db.collection('users').doc(this.requestData.user_id).collection('dealings').doc().set(data2)
@@ -303,7 +312,6 @@ export default {
           //通知機能に使う奴
           db.collection('users').doc(this.requestData.user_id).collection('notice').doc().set(data5)
 
-
           this.user = '';
           this.picked = '';
           this.requestData = '';
@@ -312,6 +320,18 @@ export default {
           });
         })
       },
+      cancel(){
+          const db = firebase.firestore()
+          //送られたリクエストを削除
+          db.collection("users").doc(this.user.uid).collection("request").doc(this.requestId).delete()
+
+          db.collection("users").doc(this.user.uid).collection("notice").doc(this.requestId).delete()
+          //相手側の送信したリクエストを削除
+          db.collection("users").doc(this.requestData.user_id).collection("sendRequest").doc(this.requestId).delete()
+          
+
+          this.$router.push("/")
+      }
     },
   
 };

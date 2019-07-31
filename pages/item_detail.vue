@@ -9,7 +9,11 @@
                   <v-icon>arrow_back</v-icon>
                 </v-btn>
               </nuxt-link>
-              <v-toolbar-title class="notNewLine">{{item.item_name}}</v-toolbar-title>
+              <v-toolbar-title class="notNewLine">
+                <span v-if="item.display_flg === false" style="color:red;">
+                    ※取引済
+                    </span>
+                    {{item.item_name}}</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
           </v-card>
@@ -103,7 +107,7 @@
           </v-layout>
         </v-container>
     </v-card>
-    <v-card height="60px" flat> 
+    <v-card height="60px" flat v-if="item.display_flg === true"> 
       <v-footer height="60px" :fixed=true>
 
         <nuxt-link :to="{path: '/comment', query: {itemId: itemId }}">

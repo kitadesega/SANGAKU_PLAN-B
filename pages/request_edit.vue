@@ -198,7 +198,7 @@ export default {
               read_flag:false,
               created_at:new Date(),
             }
-          db.collection('users').doc(this.userId).collection('notice').doc().set(data5)
+          db.collection('users').doc(this.userId).collection('notice').doc(this.docRefId).set(data5)
           db.collection('users').doc(this.userId).collection('request').doc(this.docRefId).set(data4)
             .then(_ => {
               this.$router.push("/")
