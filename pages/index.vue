@@ -36,7 +36,6 @@
                 <p style="background-color:darkgrey;">{{value.country}}</p>
                 <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
                   <span v-if="value.display_flg === false" style="color:red;">
-                    ※取引済
                     </span>&nbsp;{{value.item_name}}</p>
                 </nuxt-link>
                 </v-card>

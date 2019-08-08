@@ -118,10 +118,10 @@ export default {
       //firestore設定
       const db = firebase.firestore()
       //itemコレクションを選択（コレクションについては各自調べてください）
-      var docRef = db.collection("users/"+this.user.uid+"/item");
+      var docRef = db.collection("users/"+this.user.uid+"/item").where("display_flg", "==", true);
       // var query = docRef.orderBy("created_at", "asc");
 
-      //変更や追加された分だけ持ってくる
+      
       docRef.onSnapshot(snapshot => {
         snapshot.docChanges().forEach(item => {
           this.item.push(item.doc.data());

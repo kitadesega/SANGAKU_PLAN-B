@@ -74,6 +74,7 @@
         ref="image"
         accept="image/*"
         @change="onFilePicked"
+        required
       />
 
       <v-dialog v-model="error_dialog" scrollable max-width="300px">
@@ -92,20 +93,22 @@
         <v-container>
             <!-- success -->
           <v-text-field
-            label="商品名"
+            label="お土産名"
             placeholder="(必須、40文字まで)"
             v-model="title"
             color="blue"
+            required 
           ></v-text-field>
 
           <v-textarea
-            label="商品の説明"
+            label="お土産の説明"
             placeholder="(任意、1000文字まで)
   (色、素材、重さ、定価、注意点など)"
             v-model="input"
             value=""
             height=150
             color="blue"
+            required
           ></v-textarea>
         </v-container>
       </v-flex>
@@ -115,6 +118,7 @@
             :items="categoryItems"
             label="カテゴリー"
             v-model="category"
+            required 
           ></v-select>
         </v-container>
       </v-flex>
@@ -129,7 +133,7 @@
         <v-card-title>国名選択</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
-          <v-radio-group v-model="country" column>
+          <v-radio-group v-model="country" column　required >
             <v-radio v-for="item in countryItems" :key="item" :label="item" :value="item"></v-radio>
           </v-radio-group>
         </v-card-text>
@@ -369,7 +373,7 @@ import uuid from 'uuid'
           created_at:new Date(),
         };
         // ユーザーの出品一覧に対して
-        db.collection("users/"+this.user.uid+"/item").doc().set(usersInputData)
+        db.collection("users/"+this.user.uid+"/item").doc(docRef.id).set(usersInputData)
         this.input = "";
         this.imageName= [],
         this.imageFile = [],

@@ -153,20 +153,6 @@ export default {
       });
 
         
-        //  db.collection("dealings").doc(this.dealingsKey)
-        //  .get().then(doc => {
-        //     if (doc.exists) {
-        //       if(doc.data()[this.user.uid]){
-        //         this.checked = false;
-        //       }else{
-        //         this.checked = true;
-        //       }
-
-        //     } else {
-        //         console.log("No such document!");
-        //     }
-        // })
-        
         db.collection("dealings").doc(this.dealingsKey).onSnapshot(doc => {
         if(doc.data()[this.user.uid]){
             this.checked = false;
@@ -178,6 +164,7 @@ export default {
         }else{
           this.endFlag = true;
         }
+        console.log(this.dealingsKey);
         // this.endFlag
     });
 
@@ -218,8 +205,15 @@ export default {
       washingtonRef.update({
           [this.user.uid]: true
       }).then(_=> {
-        this.checked = false;
+        this.checked = false; 
       });
+              db.collection("dealings").doc(this.dealingsKey).onSnapshot(doc => {
+        if(doc.data()[this.user.uid] && doc.data()[this.target_user]){
+          this.endFlag = false;
+        }else{
+          this.endFlag = true;
+        }
+    });
     }
   },
   br2nl(){

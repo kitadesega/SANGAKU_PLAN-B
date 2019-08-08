@@ -275,8 +275,16 @@ export default {
           db.collection("item").doc(this.targetItem.item_id).update({
               display_flg: false
           })
+          //自分の出品非表示にする
+          db.collection("users").doc(this.user.uid).collection('item').doc(this.targetItem.item_id).update({
+              display_flg: false
+          })
 
           db.collection("item").doc(this.picked.item_id).update({
+              display_flg: false
+          })
+          //相手側の出品非表示
+          db.collection("users").doc(this.requestData.user_id).collection('item').doc(this.picked.item_id).update({
               display_flg: false
           })
 
