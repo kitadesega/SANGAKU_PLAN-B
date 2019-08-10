@@ -22,6 +22,10 @@ export default {
       }
     ]
   },
+  manifest: {
+    name: 'おみちぇん',
+    short_name: 'おみちぇん',
+  },
   /*
   ** Customize the progress-bar color
   */
