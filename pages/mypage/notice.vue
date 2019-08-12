@@ -97,7 +97,7 @@ export default {
         var docRef = db.collection('users').doc(this.user).collection('notice')
         //データ取得の条件を指定して取得
 
-          //データ取得
+        //データ取得
         // docRef.get().then(snapshot => {
         //     snapshot.forEach(item => {
         //       this.item.push(item.doc.data());

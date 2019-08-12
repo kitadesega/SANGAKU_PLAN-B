@@ -74,7 +74,6 @@
         ref="image"
         accept="image/*"
         @change="onFilePicked"
-        required
       />
 
       <v-dialog v-model="error_dialog" scrollable max-width="300px">
@@ -93,22 +92,20 @@
         <v-container>
             <!-- success -->
           <v-text-field
-            label="お土産名"
+            label="商品名"
             placeholder="(必須、40文字まで)"
             v-model="title"
             color="blue"
-            required 
           ></v-text-field>
 
           <v-textarea
-            label="お土産の説明"
+            label="商品の説明"
             placeholder="(任意、1000文字まで)
   (色、素材、重さ、定価、注意点など)"
             v-model="input"
             value=""
             height=150
             color="blue"
-            required
           ></v-textarea>
         </v-container>
       </v-flex>
@@ -118,7 +115,6 @@
             :items="categoryItems"
             label="カテゴリー"
             v-model="category"
-            required 
           ></v-select>
         </v-container>
       </v-flex>
@@ -133,7 +129,7 @@
         <v-card-title>国名選択</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
-          <v-radio-group v-model="country" column　required >
+          <v-radio-group v-model="country" column>
             <v-radio v-for="item in countryItems" :key="item" :label="item" :value="item"></v-radio>
           </v-radio-group>
         </v-card-text>
@@ -285,13 +281,11 @@ import uuid from 'uuid'
           this.Message = "画像は三つ以上選択できません"
           this.error_dialog = true;
         }else{
-          console.log("ikudo");
           this.$refs.image.click();
         }
       },
       //ファイルの選択変えた時に動きそう
       onFilePicked(e) {
-        console.log("ofp");
         var files = e.target.files;
     　　//同名のファイルが選択されたときにエラーを吐かせる
         var sameNameCheck = false;
@@ -327,10 +321,12 @@ import uuid from 'uuid'
         }
       },
       remove(number) {
+        this.imageFile.splice(number,1);
         this.imageName.splice(number,1);
         this.uploadedImage.splice(number,1);
         this.imageUrl.splice(number,1);
         console.log("nakami:"+this.imageName);
+        console.log("nakami:"+this.imageFile);
       },
       logout() {
         const self = this
@@ -373,7 +369,7 @@ import uuid from 'uuid'
           created_at:new Date(),
         };
         // ユーザーの出品一覧に対して
-        db.collection("users/"+this.user.uid+"/item").doc(docRef.id).set(usersInputData)
+        db.collection("users/"+this.user.uid+"/item").doc().set(usersInputData)
         this.input = "";
         this.imageName= [],
         this.imageFile = [],
