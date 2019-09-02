@@ -38,7 +38,7 @@
         color="teal"
         flat
         value="mypage"
-        to = "/mypage/"
+        to = "/mypage"
       >
         <span>マイページ</span>
         <v-icon>accessibility</v-icon>

@@ -125,7 +125,7 @@ export default {
       docRef.onSnapshot(snapshot => {
         snapshot.docChanges().forEach(item => {
           this.item.push(item.doc.data());
-          
+          console.log(item.doc.data());
         })
       })
 

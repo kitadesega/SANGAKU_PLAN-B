@@ -102,7 +102,7 @@
           <v-layout column fill-height >      
             <v-spacer></v-spacer>
               <v-flex shrink xs1>
-              <div>{{item.county}}</div>
+              <div>{{item.country}}</div>
               </v-flex>
           </v-layout>
         </v-container>
@@ -185,7 +185,6 @@ layout: 'not_bottom',
         const db = firebase.firestore()
         //itemコレクションを選択（コレクションについては各自調べてください）
         var docRef = db.collection("item").doc(this.itemId);
-        
         docRef.get().then(doc => {
             if (doc.exists) {
                 this.item = doc.data();
@@ -199,7 +198,7 @@ layout: 'not_bottom',
     })
   },
     methods : {
-      ...mapActions(['setUser']), 
+      ...mapActions(['setUser']),
       click() {
       this.dialog =　!this.dialog
     },

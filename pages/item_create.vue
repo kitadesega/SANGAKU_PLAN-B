@@ -201,13 +201,13 @@ import uuid from 'uuid'
       imageUrl: [],
       loading: true,
       categoryItems: ['レディース', 'メンズ', 'ベビー・キッズ', 'インテリア・住まい・小物','食品','本・音楽・ゲーム','おもちゃ・ホビー・グッズ','コスメ・香水・美容','家電・スマホ・カメラ','スポーツ・レジャー','ハンドメイド','チケット','自動車・オートバイ','その他'],
-      countryItems:['アメリカ合衆国','中華人民共和国','大韓民国','台湾','タイ','シンガポール','ベトナム','香港','インドネシア','ドイツ','その他'],
+      countryItems:['アメリカ合衆国','中華人民共和国','大韓民国','台湾','タイ','シンガポール','スペイン','ベトナム','香港','インドネシア','ドイツ','その他'],
       country:''
     }
     //console.log(user);
   },
     methods : {
-      ...mapActions(['setUser']), 
+      ...mapActions(['setUser']),
       sendMessage(){
         this.loading = false;
         firebase.auth().onAuthStateChanged(user => {
@@ -259,7 +259,6 @@ import uuid from 'uuid'
                       }else{
                         this.DBwriting(db,user);
                       }
-                  
                     });
                   });
 
@@ -269,7 +268,6 @@ import uuid from 'uuid'
 
                 });
               });
-            
 
         })
       },
@@ -369,7 +367,7 @@ import uuid from 'uuid'
           created_at:new Date(),
         };
         // ユーザーの出品一覧に対して
-        db.collection("users/"+this.user.uid+"/item").doc().set(usersInputData)
+        db.collection("users/"+this.user.uid+"/item").doc(docRef.id).set(usersInputData)
         this.input = "";
         this.imageName= [],
         this.imageFile = [],

@@ -311,7 +311,7 @@ export default {
               //取引キー
               dealings_key : dealings_id,
               image_url:this.picked.image_url,
-              message:this.requestData.user_name + "さんとの取引が開始しました",
+              message:this.user.displayName + "さんとの取引が開始しました",
               read_flag:false,
               type:"dealings",
               created_at:new Date(),

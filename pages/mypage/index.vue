@@ -11,11 +11,11 @@
     <v-card style="padding-bottom:10px;">
       <button type="button" @click="logout">ログアウト</button>
       <div style="margin-left:10px;padding-top:10px;">
-        <v-avatar size="56px" >
+        <!-- <v-avatar size="56px" >
           <img
             :src="user.photoURL"
           >
-          </v-avatar>
+          </v-avatar> -->
           <a class="notNewLine">
             {{user.displayName}}
           </a>
