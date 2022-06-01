@@ -20,7 +20,7 @@
     "js-cookie": "^2.2.0",
     "nuxt": "^2.0.0",
     "sanitize-html": "^1.20.1",
-    "sharp": "^0.22.1",
+    "sharp": "^0.30.5",
     "vue-loader": "^15.7.0",
     "vue-nl2br": "^0.1.1",
     "vue-qart": "^2.2.0",
